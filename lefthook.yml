@@ -2,6 +2,8 @@ pre-commit:
   parallel: true
   commands:
     eslint:
-      run: yarn run lint:eslint
+      glob: "*.{js,jsx,ts,tsx}"
+      run: eslint --fix {staged_files}
     prettier:
-      run: yarn run lint:prettier
+      glob: "*.{json,yml,graphql}"
+      run: prettier --check --write {staged_files}

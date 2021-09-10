@@ -6,9 +6,9 @@ package-lock.json
 *.log
 
 # env
-.env
 .env.local
-.envrc
+.env.development.local
+.env.production.local
 
 # OS
 .DS_Store

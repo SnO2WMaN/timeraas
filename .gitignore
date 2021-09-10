@@ -1,0 +1,29 @@
+# dependencies
+node_modules/
+package-lock.json
+
+# logfiles
+*.log
+
+# env
+.env
+.env.local
+.envrc
+
+# OS
+.DS_Store
+
+# VSCode
+.vscode/*
+!.vscode/extensions.json
+
+# generated
+.next/
+.vercel/
+coverage/
+dist/
+storybook-static/
+
+.eslintcache
+
+src/i18n/i18n-*

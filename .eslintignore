@@ -1,0 +1,15 @@
+# dependencies
+package-lock.json
+
+# generated
+.next/
+.vercel/
+coverage/
+dist/
+storybook-static/
+
+.eslintcache
+
+next-env.d.ts
+
+src/i18n/i18n-*

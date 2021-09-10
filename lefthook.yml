@@ -2,8 +2,8 @@ pre-commit:
   parallel: true
   commands:
     eslint:
-      glob: "*.{js,jsx,ts,tsx}"
-      run: eslint --fix {staged_files}
+      glob: '*.{js,jsx,ts,tsx}'
+      run: eslint {staged_files}
     prettier:
-      glob: "*.{json,yml,graphql}"
-      run: prettier --check --write {staged_files}
+      glob: '*.{json,yml,graphql}'
+      run: prettier --check {staged_files}

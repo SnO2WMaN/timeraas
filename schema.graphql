@@ -1,8 +1,13 @@
 schema {
   query: Query
-  mutation: Mutation
+}
+
+type Query {
+  viewer: User!
 }
 
 type User {
   alias: String!
+  displayName: String!
+  picture: String!
 }

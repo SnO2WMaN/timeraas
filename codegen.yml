@@ -6,3 +6,11 @@ generates:
       - schema-ast
     config:
       includeDirectives: true
+
+  ./src/pages/api/graphql.ts:
+    plugins:
+      - typescript
+      - typescript-resolvers
+      - typescript-operations
+    config:
+      useIndexSignature: true

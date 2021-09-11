@@ -13,3 +13,4 @@ storybook-static/
 next-env.d.ts
 
 src/i18n/i18n-*
+src/pages/api/graphql.ts

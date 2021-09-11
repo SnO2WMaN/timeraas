@@ -22,7 +22,7 @@
   },
   "overrides": [
     {
-      "files": ["*.config.js"],
+      "files": ["*.js"],
       "extends": ["plugin:@shopify/node"]
     }
   ]

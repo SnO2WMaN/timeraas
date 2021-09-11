@@ -6,7 +6,7 @@ export const Footer: React.VFC<{className?: string}> = ({
   ...props
 }) => {
   return (
-    <footer className={clsx(className, 'bg-night-1', 'py-4')}>
+    <footer className={clsx(className, 'bg-night-3', 'py-4')}>
       <div className={clsx('container', 'mx-auto')}>
         <p className={clsx('text-snow-1')}>footer</p>
       </div>

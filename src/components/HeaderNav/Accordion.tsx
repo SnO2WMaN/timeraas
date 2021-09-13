@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import {signOut} from 'next-auth/client';
+import {signOut} from 'next-auth/react';
 
 import {IconSignout} from '../Icon';
 

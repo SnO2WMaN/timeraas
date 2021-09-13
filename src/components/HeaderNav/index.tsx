@@ -6,7 +6,7 @@ import {IconLoading} from '../Icon';
 import {Signin} from './Signin';
 import {UserInfo} from './UserInfo';
 
-import {useUser} from '~/lib/useUser';
+import {useViewer} from '~/lib/useUser';
 import {useTranslation} from '~/i18n/useTranslation';
 
 export const Loading: React.VFC<{className?: string}> = ({className}) => {
@@ -51,8 +51,7 @@ export const View: React.VFC<ViewProps> = ({className, user}) => {
     </header>
   );
 };
-
 export const HeaderNav: React.VFC<{className?: string}> = ({...props}) => {
-  const user = useUser();
+  const user = useViewer();
   return <View {...props} user={user} />;
 };

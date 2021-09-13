@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from 'next';
+import {NextPage2, GetServerSideProps, InferGetServerSidePropsType} from 'next';
 import React from 'react';
 import clsx from 'clsx';
 import Head from 'next/head';
@@ -43,7 +43,7 @@ export const getServerSideProps: GetServerSideProps<
     );
 };
 
-export const Page: NextPage<
+export const Page: NextPage2<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({id, title, igniteAt, ...props}) => {
   return (

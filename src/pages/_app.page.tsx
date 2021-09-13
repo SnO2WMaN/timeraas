@@ -5,9 +5,9 @@ import {detectLocale} from 'typesafe-i18n/detectors';
 import {SessionProvider} from 'next-auth/react';
 
 import {createApolloClient} from '~/apollo/client';
+import {DefaultLayout} from '~/components/Layout';
 import {Locales} from '~/i18n/i18n-types';
 import TypesafeI18n from '~/i18n/i18n-react';
-import {DefaultLayout} from '~/components/Layout';
 
 import '~/styles/index.css';
 

@@ -7,7 +7,7 @@ import {SessionProvider} from 'next-auth/react';
 import {createApolloClient} from '~/apollo/client';
 import {Locales} from '~/i18n/i18n-types';
 import TypesafeI18n from '~/i18n/i18n-react';
-import {Layout} from '~/components/Layout';
+import {DefaultLayout} from '~/components/Layout';
 
 import '~/styles/index.css';
 
@@ -26,6 +26,8 @@ const App = ({
   );
 
   const apolloClient = createApolloClient();
+
+  const Layout = Component.layout ?? DefaultLayout;
 
   return (
     <SessionProvider session={session}>

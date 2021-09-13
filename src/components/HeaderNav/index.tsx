@@ -6,8 +6,8 @@ import {IconLoading} from '../Icon';
 import {Signin} from './Signin';
 import {UserInfo} from './UserInfo';
 
-import {useViewer} from '~/lib/useUser';
 import {useTranslation} from '~/i18n/useTranslation';
+import {useViewer} from '~/lib/useViewer';
 
 export const Loading: React.VFC<{className?: string}> = ({className}) => {
   const {LL} = useTranslation();

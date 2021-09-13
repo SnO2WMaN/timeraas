@@ -4,15 +4,13 @@ import React from 'react';
 import clsx from 'clsx';
 import Head from 'next/head';
 
-import {getSdk} from './index.page.graphql';
+import {getSdk} from './details.page.graphql';
 import {ClockFC} from './Clock';
 
-import {Link} from '~/components/Link';
-import {CountdownLayout} from '~/components/Layout';
 import {graphqlClient} from '~/graphql-request/client';
 
-const CountdownPageQuery = gql`
-  query CountdownPage($id: ID!) {
+const CountdownDetailsPageQuery = gql`
+  query CountdownDetailsPage($id: ID!) {
     findCountdown(id: $id) {
       countdown {
         id
@@ -22,6 +20,7 @@ const CountdownPageQuery = gql`
     }
   }
 `;
+
 const graphqlSdk = getSdk(graphqlClient);
 export const getServerSideProps: GetServerSideProps<
   {id: string; title: string; igniteAt: string},
@@ -29,7 +28,7 @@ export const getServerSideProps: GetServerSideProps<
 > = async ({query}) => {
   if (!query || typeof query.id !== 'string') return {notFound: true};
   return graphqlSdk
-    .CountdownPage({id: query.id})
+    .CountdownDetailsPage({id: query.id})
     .then(({findCountdown: {countdown}}) =>
       countdown
         ? {
@@ -45,7 +44,7 @@ export const getServerSideProps: GetServerSideProps<
 
 export const Page: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({id, title, igniteAt, ...props}) => {
+> = ({title, igniteAt, ...props}) => {
   return (
     <>
       <Head>
@@ -58,12 +57,8 @@ export const Page: NextPage<
         )}
       >
         <ClockFC igniteAt={new Date(igniteAt)} />
-        <Link href={`/countdown/${id}/details`}>
-          <a>Details</a>
-        </Link>
       </div>
     </>
   );
 };
-Page.layout = CountdownLayout;
 export default Page;

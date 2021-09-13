@@ -1,9 +1,8 @@
 import {ApolloServer, makeExecutableSchema} from 'apollo-server-micro';
+import {PrismaClient} from '@prisma/client';
 
 import {findCountdown, getCountdown, getViewer} from './query';
 import {Resolvers, typeDefs} from './codegen';
-
-import {PrismaClient} from '.prisma/client';
 
 export const config = {api: {bodyParser: false}};
 

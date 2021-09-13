@@ -29,3 +29,4 @@ storybook-static/
 src/**/codegen.ts
 src/i18n/i18n-*
 src/lib/*.graphql.ts
+src/pages/**/*.graphql.ts

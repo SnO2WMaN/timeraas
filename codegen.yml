@@ -24,6 +24,22 @@ generates:
       - typescript-resolvers
       - typescript-operations
 
+  ./src/pages/codegen.ts:
+    plugins:
+      - typescript
+
+  ./src/pages/:
+    preset: near-operation-file
+    documents:
+      - src/pages/**/*.page.tsx
+    presetConfig:
+      baseTypesPath: ./codegen.ts
+      extension: .graphql.ts
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-graphql-request
+
   ./src/pages/api/graphql/codegen.ts:
     plugins:
       - typescript

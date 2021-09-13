@@ -1,4 +1,4 @@
-import {useMemo} from 'react';
+import {useEffect, useState} from 'react';
 import gql from 'graphql-tag';
 
 import {useGetViewerQuery} from './useViewer.graphql';
@@ -13,21 +13,20 @@ const GetViewerQuery = gql`
   }
 `;
 
-export const useViewer = ():
-  | {alias: string; displayName: string; image: string}
-  | null
-  | undefined => {
+export type Viewer = {alias: string; displayName: string; image: string};
+export const useViewer = (): Viewer | null | undefined => {
+  const [viewer, setViewer] = useState<Viewer | null | undefined>(undefined);
   const {data, loading} = useGetViewerQuery();
-  const user = useMemo(() => {
-    if (loading) return undefined;
-    else if (data?.viewer)
-      return {
+
+  useEffect(() => {
+    if (!loading && data?.viewer)
+      setViewer({
         alias: data.viewer.alias,
         displayName: data.viewer.displayName,
         image: data.viewer.picture,
-      };
-    else return null;
+      });
+    else if (!loading && !data?.viewer) setViewer(null);
   }, [data, loading]);
 
-  return user;
+  return viewer;
 };

@@ -12,5 +12,8 @@ storybook-static/
 
 next-env.d.ts
 
+public/mockServiceWorker.js
+
+src/*/codegen.ts
 src/i18n/i18n-*
-src/pages/api/graphql.ts
+src/lib/*.graphql.ts

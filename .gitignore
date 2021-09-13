@@ -26,6 +26,6 @@ storybook-static/
 
 .eslintcache
 
-src/*/codegen.ts
+src/**/codegen.ts
 src/i18n/i18n-*
 src/lib/*.graphql.ts

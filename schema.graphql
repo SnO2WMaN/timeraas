@@ -1,8 +1,13 @@
+scalar DateTime
+
 schema {
   query: Query
 }
 
 type Query {
+  countdown(id: ID!): Countdown!
+  findCountdown(id: ID!): FindCountdownPayload!
+
   viewer: User
 }
 
@@ -10,4 +15,18 @@ type User {
   alias: String!
   displayName: String!
   picture: String!
+}
+
+type Countdown {
+  id: ID!
+  title: String!
+
+  igniteAt: DateTime!
+
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type FindCountdownPayload {
+  countdown: Countdown
 }

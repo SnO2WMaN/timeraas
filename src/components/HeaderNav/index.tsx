@@ -33,7 +33,7 @@ export const Loading: React.VFC<{className?: string}> = ({className}) => {
 
 export type ViewProps = {
   className?: string;
-  user: undefined | null | {image: string; alias: string; displayName: string};
+  user: undefined | null | {image: string; name: string};
 };
 export const View: React.VFC<ViewProps> = ({className, user}) => {
   const {LL} = useTranslation();

@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import Image from 'next/image';
 
 import {AccordionItem} from './AccordionItem';
 
@@ -8,7 +9,7 @@ import {useTranslation} from '~/i18n/useTranslation';
 
 export type AccordionProps = {
   className?: string;
-  user: {alias: string; displayName: string};
+  user: {name: string; image: string};
 };
 export const Accordion: React.VFC<AccordionProps> = ({className, user}) => {
   const {LL} = useTranslation();
@@ -25,18 +26,26 @@ export const Accordion: React.VFC<AccordionProps> = ({className, user}) => {
         ['border', 'border-night-4'],
       )}
     >
-      <div className={clsx(['flex', 'flex-col'], ['px-4'], ['py-2'])}>
+      <div className={clsx(['flex', 'items-center'], ['px-4'], ['py-2'])}>
+        <div className={clsx('w-8', 'h-8')}>
+          <Image
+            className={clsx('rounded-full')}
+            src={user.image}
+            width={128}
+            height={128}
+          />
+        </div>
         <span
           className={clsx(
             'text-snow-3',
+            'ml-2',
             ['text-sm'],
             ['font-bold'],
             ['break-all'],
           )}
         >
-          {user.displayName}
+          {user.name}
         </span>
-        <span className={clsx('text-snow-1', ['text-xs'])}>@{user.alias}</span>
       </div>
       <div className={clsx(['pt-1', 'pb-1'], ['border-t', 'border-night-4'])}>
         <AccordionItem

@@ -2,6 +2,7 @@ import {Meta, Story} from '@storybook/react';
 import React from 'react';
 
 import {Accordion, AccordionProps} from '.';
+import {icon} from '~~/.storybook/assets';
 
 export default {
   title: 'HeaderNav/Accordion',
@@ -10,5 +11,5 @@ export default {
 
 export const Primary: Story<AccordionProps> = (args) => <Accordion {...args} />;
 Primary.args = {
-  user: {alias: 'Alias', displayName: 'DisplayName'},
+  user: {image: icon(0), name: 'Name'},
 };

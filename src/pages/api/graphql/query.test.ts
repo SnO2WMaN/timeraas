@@ -1,5 +1,3 @@
-import * as client from 'next-auth/react';
-
 import {getViewer} from './query';
 
 jest.mock('next-auth/react');
@@ -7,21 +5,12 @@ jest.mock('next-auth/react');
 describe('Query Resolvers', () => {
   describe('getViewer', () => {
     it('successful', async () => {
-      jest.spyOn(client, 'getSession').mockResolvedValue({
-        user: {
-          name: '1',
-          email: '1',
-          image: '1',
-        },
-        expires: '',
-      });
-
-      const actual = await getViewer({});
+      const actual = await getViewer({}, {userId: '1'});
 
       expect(actual).toStrictEqual({
-        alias: 'alias',
-        displayName: 'displayName',
-        picture: 'picture',
+        id: '1',
+        name: 'Name',
+        image: 'image url',
       });
     });
   });

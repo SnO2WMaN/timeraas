@@ -20,5 +20,5 @@ NotSignedIn.args = {user: null};
 
 export const SignedIn: Story<ViewProps> = (args) => <View {...args} />;
 SignedIn.args = {
-  user: {image: icon(0), alias: 'Alias', displayName: 'DisplayName'},
+  user: {image: icon(0), name: 'Name'},
 };

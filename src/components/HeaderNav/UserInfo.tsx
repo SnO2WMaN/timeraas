@@ -27,7 +27,7 @@ const Details = styled.details`
 
 export const UserInfo: React.VFC<{
   className?: string;
-  user: {image: string; alias: string; displayName: string};
+  user: {image: string; name: string};
 }> = ({className, user}) => {
   return (
     <Details className={clsx(className, 'flex', ['relative'])}>
@@ -49,7 +49,7 @@ export const UserInfo: React.VFC<{
           ['mt-1'],
           ['z-1'],
         )}
-        user={{alias: user.alias, displayName: user.displayName}}
+        user={{image: user.image, name: user.name}}
       />
     </Details>
   );

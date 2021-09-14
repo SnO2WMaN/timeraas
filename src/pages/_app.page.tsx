@@ -1,33 +1,27 @@
 import React from 'react';
 import {AppProps} from 'next/app';
-import {ApolloProvider} from '@apollo/client';
-import {detectLocale} from 'typesafe-i18n/detectors';
 import {SessionProvider} from 'next-auth/react';
+import {ApolloProvider} from '@apollo/client';
 import {config as FontAwesomeConfig} from '@fortawesome/fontawesome-svg-core';
-
-import {createApolloClient} from '~/apollo/client';
-import {DefaultLayout} from '~/components/Layout';
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import {Locales} from '~/i18n/i18n-types';
+
+import {DefaultLayout} from '~/components/Layout';
+import {createApolloClient} from '~/apollo/client';
+import {localeDetector} from '~/i18n/detector';
 import TypesafeI18n from '~/i18n/i18n-react';
-
 import '~/styles/index.css';
-
-FontAwesomeConfig.autoAddCss = false;
 
 // eslint-disable-next-line no-process-env
 if (process.env.NEXT_PUBLIC_API_MOCKING_ENABLED) require('../mocks');
+
+FontAwesomeConfig.autoAddCss = false;
 
 const App = ({
   Component,
   pageProps: {session, ...pageProps},
   router,
 }: AppProps) => {
-  const detectedLocales = detectLocale(
-    router.defaultLocale as Locales,
-    router.locales as Locales[],
-    () => (router.locale ? [router.locale] : []),
-  );
+  const detectedLocales = localeDetector(router);
 
   const apolloClient = createApolloClient();
 

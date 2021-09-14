@@ -11,7 +11,7 @@
     "generate:i18n": "typesafe-i18n --no-watch",
     "generate:prisma": "prisma generate",
     "typecheck": "tsc --noEmit",
-    "test": "jest --config=jest.config.ts",
+    "test": "jest --config=jest.config.ts --passWithNoTests",
     "storybook:dev": "start-storybook -p 6006 -s ./public",
     "storybook:build": "build-storybook -s ./public",
     "lint": "run-s -cn lint:*",

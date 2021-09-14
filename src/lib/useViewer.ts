@@ -6,9 +6,8 @@ import {useGetViewerQuery} from './useViewer.graphql';
 const GetViewerQuery = gql`
   query GetViewer {
     viewer {
-      alias
-      displayName
-      picture
+      name
+      image
     }
   }
 `;
@@ -21,9 +20,9 @@ export const useViewer = (): Viewer | null | undefined => {
   useEffect(() => {
     if (!loading && data?.viewer)
       setViewer({
-        alias: data.viewer.alias,
-        displayName: data.viewer.displayName,
-        image: data.viewer.picture,
+        alias: data.viewer.name,
+        displayName: data.viewer.name,
+        image: data.viewer.image,
       });
     else if (!loading && !data?.viewer) setViewer(null);
   }, [data, loading]);

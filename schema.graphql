@@ -12,9 +12,8 @@ type Query {
 }
 
 type User {
-  alias: String!
-  displayName: String!
-  picture: String!
+  name: String!
+  image: String!
 }
 
 type Countdown {
@@ -29,4 +28,12 @@ type Countdown {
 
 type FindCountdownPayload {
   countdown: Countdown
+}
+
+type Mutation {
+  createCountdown(title: String!, igniteAt: DateTime!): CreateCountdownPayload!
+}
+
+type CreateCountdownPayload {
+  countdown: Countdown!
 }

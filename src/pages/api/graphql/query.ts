@@ -1,19 +1,14 @@
-import {getSession} from 'next-auth/react';
+import {PrismaClient} from '@prisma/client';
 
-import {PrismaClient} from '.prisma/client';
-
-export const getViewer = async (context: any) => {
-  const session = await getSession({req: context.req});
-
-  if (!session) return null;
-
-  if (session.user && session.user.name && session.user.image)
-    return {
-      alias: session.user.name,
-      displayName: session.user.name,
-      picture: session.user.image,
-    };
-  return null;
+export const getViewer = async (
+  client: PrismaClient,
+  {userId}: {userId: string},
+): Promise<{id: string; name: string; image: string}> => {
+  return client.user.findUnique({
+    where: {id: userId},
+    select: {id: true, name: true, image: true},
+    rejectOnNotFound: true,
+  });
 };
 
 export const getCountdown = async (

@@ -1,9 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
-import {signOut} from 'next-auth/react';
 
-import {IconSignout} from '../Icon';
+import {AccordionItem} from './AccordionItem';
 
+import {IconList, IconPlus, IconSignout} from '~/components/Icon';
 import {useTranslation} from '~/i18n/useTranslation';
 
 export type AccordionProps = {
@@ -38,28 +38,24 @@ export const Accordion: React.VFC<AccordionProps> = ({className, user}) => {
         </span>
         <span className={clsx('text-snow-1', ['text-xs'])}>@{user.alias}</span>
       </div>
-      <div className={clsx(['mt-1'], ['border-t', 'border-night-4'])}>
-        <a
-          className={clsx(
-            'w-full',
-            ['inline-flex', 'items-center'],
-            ['px-6'],
-            ['py-2'],
-            'whitespace-nowrap',
-            ['hover:bg-frost-1'],
-            ['text-snow-3', 'hover:text-night-1'],
-          )}
+      <div className={clsx(['pt-1', 'pb-1'], ['border-t', 'border-night-4'])}>
+        <AccordionItem
+          href="/new"
+          Icon={IconPlus}
+          text={LL.HeaderNav.CreateNew()}
+        />
+        <AccordionItem
+          href="/list"
+          Icon={IconList}
+          text={LL.HeaderNav.List()}
+        />
+      </div>
+      <div className={clsx(['pt-1'], ['border-t', 'border-night-4'])}>
+        <AccordionItem
           href="/api/auth/signout"
-          onClick={(event) => {
-            event.preventDefault();
-            signOut();
-          }}
-        >
-          <IconSignout className={clsx('text-xs')} />
-          <span className={clsx('ml-2', ['text-xs'], ['font-bold'])}>
-            {LL.signout()}
-          </span>
-        </a>
+          Icon={IconSignout}
+          text={LL.Signout()}
+        />
       </div>
     </nav>
   );

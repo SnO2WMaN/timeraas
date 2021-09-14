@@ -1,10 +1,18 @@
 import type {BaseTranslation} from 'typesafe-i18n';
 
 const ja: BaseTranslation = {
-  head: {},
-  loading: 'ロード中',
-  signin: 'ログイン',
-  signout: 'ログアウト',
+  ServiceName: 'TimeraaS',
+
+  Loading: 'ロード中',
+  Signin: 'ログイン',
+  Signout: 'ログアウト',
+
+  Head: {},
+
+  HeaderNav: {
+    CreateNew: '新しく作る',
+    List: 'リスト',
+  },
 };
 
 export default ja;

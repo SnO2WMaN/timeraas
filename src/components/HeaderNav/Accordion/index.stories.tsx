@@ -1,7 +1,7 @@
 import {Meta, Story} from '@storybook/react';
 import React from 'react';
 
-import {Accordion, AccordionProps} from './Accordion';
+import {Accordion, AccordionProps} from '.';
 
 export default {
   title: 'HeaderNav/Accordion',

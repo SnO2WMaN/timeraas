@@ -30,7 +30,7 @@ export const Signin: React.VFC<SigninProps> = ({className}) => {
     >
       <IconSignin className={clsx('text-sm')} />
       <span className={clsx('ml-2', ['text-sm'], ['font-bold'])}>
-        {LL.signin()}
+        {LL.Signin()}
       </span>
     </a>
   );

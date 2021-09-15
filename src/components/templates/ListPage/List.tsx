@@ -18,6 +18,7 @@ const GetCountdownsQuery = gql`
     $field: CountdownOrderField!
   ) {
     viewer {
+      id
       createdCountdowns(
         first: $first
         after: $after
@@ -63,3 +64,5 @@ export const List: React.VFC<ListProps> = ({className, firstByte}) => {
     </div>
   );
 };
+
+export const Countdown = () => {};

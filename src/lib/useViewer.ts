@@ -6,6 +6,7 @@ import {useGetViewerQuery} from './useViewer.codegen';
 const GetViewerQuery = gql`
   query GetViewer {
     viewer {
+      id
       name
       image
     }

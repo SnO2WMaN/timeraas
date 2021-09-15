@@ -13,6 +13,9 @@ const getUserId = (ctx: any): Promise<string | null> =>
   getSession({req: ctx.req}).then((session) => session?.user.id || null);
 
 const resolvers: Resolvers = {
+  Countdown: {
+    createdBy(parent) {},
+  },
   Query: {
     async viewer(parent, args, ctx) {
       const userId = await getUserId(ctx);

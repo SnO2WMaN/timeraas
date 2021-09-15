@@ -1,29 +1,91 @@
 scalar DateTime
 
-schema {
-  query: Query
+enum OrderDirection {
+  ASC
+  DESC
 }
 
-type Query {
-  countdown(id: ID!): Countdown!
-  findCountdown(id: ID!): FindCountdownPayload!
-
-  viewer: User
+interface Node {
+  id: ID!
 }
 
-type User {
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type User implements Node {
+  id: ID!
+
   name: String!
   image: String!
+
+  createdCountdowns(
+    first: Int
+    after: String
+    last: Int
+    before: String
+    order: CountdownOrder = {order: DESC, field: CREATED_AT}
+  ): CountdownConnection!
 }
 
-type Countdown {
+type UserEdge {
+  node: User!
+  cursor: String!
+}
+
+type UserConnection {
+  edges: [UserEdge!]!
+  pageInfo: PageInfo!
+}
+
+type Countdown implements Node {
   id: ID!
+
   title: String!
 
   igniteAt: DateTime!
-
   createdAt: DateTime!
   updatedAt: DateTime!
+
+  createdBy: User!
+}
+
+type CountdownEdge {
+  node: Countdown!
+  cursor: String!
+}
+
+type CountdownConnection {
+  edges: [CountdownEdge!]!
+  pageInfo: PageInfo!
+}
+
+input CountdownOrder {
+  order: OrderDirection!
+  field: CountdownOrderField!
+}
+
+enum CountdownOrderField {
+  IGNITE_AT
+  CREATED_AT
+  UPDATED_AT
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  node(id: ID!): Node
+
+  viewer: User
+
+  countdown(id: ID!): Countdown!
+  findCountdown(id: ID!): FindCountdownPayload!
 }
 
 type FindCountdownPayload {

@@ -4,7 +4,7 @@ import React from 'react';
 import clsx from 'clsx';
 import Head from 'next/head';
 
-import {getSdk} from './index.page.graphql';
+import {getSdk} from './index.page.codegen';
 
 import {ClockFC} from '~/components/Clock';
 import {Link} from '~/components/Link';
@@ -18,6 +18,11 @@ const CountdownPageQuery = gql`
         id
         title
         igniteAt
+        createdBy {
+          id
+          name
+          image
+        }
       }
     }
   }

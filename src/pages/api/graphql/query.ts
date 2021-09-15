@@ -5,8 +5,14 @@ export const getViewer = async (
   {userId}: {userId: string},
 ): Promise<{id: string; name: string; image: string}> => {
   return client.user.findUnique({
-    where: {id: userId},
-    select: {id: true, name: true, image: true},
+    where: {
+      id: userId,
+    },
+    select: {
+      id: true,
+      name: true,
+      image: true,
+    },
     rejectOnNotFound: true,
   });
 };

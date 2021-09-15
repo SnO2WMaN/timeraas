@@ -1,5 +1,9 @@
 schema: ./schema.graphql
 
+config:
+  scalars:
+    DateTime: string
+
 generates:
   ./src/components/codegen.ts:
     plugins:

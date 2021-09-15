@@ -1,6 +1,23 @@
 schema: ./schema.graphql
 
 generates:
+  ./src/components/codegen.ts:
+    plugins:
+      - typescript
+
+  ./src/components/:
+    preset: near-operation-file
+    documents:
+      - 'src/components/**/*.{ts,tsx}'
+      - '!src/components/**/*.codegen.ts'
+    presetConfig:
+      baseTypesPath: ./codegen.ts
+      extension: .codegen.ts
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+
   ./src/lib/codegen.ts:
     plugins:
       - typescript
@@ -8,11 +25,11 @@ generates:
   ./src/lib/:
     preset: near-operation-file
     documents:
-      - 'src/lib/*.ts'
-      - '!src/lib/*.graphql.ts'
+      - 'src/lib/**/*.ts'
+      - '!src/lib/**/*.codegen.ts'
     presetConfig:
       baseTypesPath: ./codegen.ts
-      extension: .graphql.ts
+      extension: .codegen.ts
     plugins:
       - typescript
       - typescript-operations
@@ -34,7 +51,7 @@ generates:
       - src/pages/**/*.page.tsx
     presetConfig:
       baseTypesPath: ./codegen.ts
-      extension: .graphql.ts
+      extension: .codegen.ts
     plugins:
       - typescript
       - typescript-operations

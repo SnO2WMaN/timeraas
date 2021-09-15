@@ -5,8 +5,8 @@ import clsx from 'clsx';
 import Head from 'next/head';
 
 import {getSdk} from './index.page.graphql';
-import {ClockFC} from './Clock';
 
+import {ClockFC} from '~/components/Clock';
 import {Link} from '~/components/Link';
 import {CountdownLayout} from '~/components/Layout';
 import {graphqlClient} from '~/graphql-request/client';

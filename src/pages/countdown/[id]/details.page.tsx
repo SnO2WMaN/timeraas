@@ -5,8 +5,8 @@ import clsx from 'clsx';
 import Head from 'next/head';
 
 import {getSdk} from './details.page.graphql';
-import {ClockFC} from './Clock';
 
+import {ClockFC} from '~/components/Clock';
 import {graphqlClient} from '~/graphql-request/client';
 
 const CountdownDetailsPageQuery = gql`

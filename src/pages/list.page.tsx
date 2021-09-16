@@ -5,7 +5,7 @@ import {
   ListProps,
   CountdownOrderField,
   OrderDirection,
-} from '~/components/templates/ListPage/List';
+} from '~/components/ListPage/List';
 import {SignedInNextPage, withSignin} from '~/lib/withSignin';
 
 export type UrlQuery = Record<string, never>;

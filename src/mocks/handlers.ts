@@ -7,7 +7,7 @@ import * as faker from 'faker';
 import {
   GetCountdownsQuery,
   GetCountdownsQueryVariables,
-} from '~/components/templates/ListPage/List.codegen';
+} from '~/components/ListPage/List.codegen';
 import {GetViewerQuery, GetViewerQueryVariables} from '~/lib/useViewer.codegen';
 
 const NextMocks = [

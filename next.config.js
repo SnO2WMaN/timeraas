@@ -1,4 +1,6 @@
-/** @type {import('next/dist/server/config-shared').NextConfig} */
+/**
+ * @type {import('next').NextConfig}
+ */
 const nextConfig = {
   pageExtensions: ['page.tsx', 'api.js', 'api.ts'],
   reactStrictMode: true,

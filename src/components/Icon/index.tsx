@@ -1,8 +1,11 @@
 import React from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
+  faEdit,
+  faFire,
   faListUl,
   faPlus,
+  faPlusCircle,
   faSignInAlt,
   faSignOutAlt,
   faSpinner,
@@ -23,4 +26,14 @@ export const IconPlus: React.VFC<{className?: string}> = (props) => (
 );
 export const IconList: React.VFC<{className?: string}> = (props) => (
   <FontAwesomeIcon icon={faListUl} fixedWidth {...props} />
+);
+
+export const IconIgniteAt: React.VFC<{className?: string}> = (props) => (
+  <FontAwesomeIcon fixedWidth icon={faFire} {...props} />
+);
+export const IconCreatedAt: React.VFC<{className?: string}> = (props) => (
+  <FontAwesomeIcon fixedWidth icon={faPlusCircle} {...props} />
+);
+export const IconUpdatedAt: React.VFC<{className?: string}> = (props) => (
+  <FontAwesomeIcon fixedWidth icon={faEdit} {...props} />
 );

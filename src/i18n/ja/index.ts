@@ -7,7 +7,16 @@ const ja: BaseTranslation = {
   Signin: 'ログイン',
   Signout: 'ログアウト',
 
+  IgniteAt: '発火時刻',
+  CreatedAt: '作成日時',
+  UpdatedAt: '更新日時',
+
   Head: {},
+
+  FormatDate: {
+    LongDateTime: '{0:Date|longDateTime}',
+    MediumDateTime: '{0:Date|mediumDateTime}',
+  },
 
   HeaderNav: {
     CreateNew: '新しく作る',

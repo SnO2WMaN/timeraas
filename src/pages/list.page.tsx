@@ -1,4 +1,3 @@
-import {NextPage} from 'next';
 import React from 'react';
 
 import {
@@ -7,16 +6,18 @@ import {
   CountdownOrderField,
   OrderDirection,
 } from '~/components/templates/ListPage/List';
-import {withSignin} from '~/lib/withSignin';
+import {SignedInNextPage, withSignin} from '~/lib/withSignin';
 
 export type UrlQuery = Record<string, never>;
 export type PageProps = Record<string, never>;
 
-export const Page: NextPage<PageProps> = ({...props}) => {
+export const Page: SignedInNextPage<PageProps> = ({viewer, ...props}) => {
   const firstByte: ListProps['firstByte'] = {
+    viewerId: viewer.id,
     first: 10,
     order: OrderDirection.Asc,
     field: CountdownOrderField.IgniteAt,
+    after: null,
   };
 
   return (

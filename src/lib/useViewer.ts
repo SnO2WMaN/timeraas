@@ -13,7 +13,7 @@ const GetViewerQuery = gql`
   }
 `;
 
-export type Viewer = {image: string; name: string};
+export type Viewer = {id: string; image: string; name: string};
 export const useViewer = (): Viewer | null | undefined => {
   const [viewer, setViewer] = useState<Viewer | null | undefined>(undefined);
   const {data, loading} = useGetViewerQuery();
@@ -21,6 +21,7 @@ export const useViewer = (): Viewer | null | undefined => {
   useEffect(() => {
     if (!loading && data?.viewer)
       setViewer({
+        id: data.viewer.id,
         name: data.viewer.name,
         image: data.viewer.image,
       });

@@ -1,12 +1,16 @@
+import {NextPage} from 'next';
 import React from 'react';
 
-import {useViewer} from './useViewer';
+import {useViewer, Viewer} from './useViewer';
 
-export const withSignin = (Page: React.FC | React.VFC) => {
-  return () => {
+export type SignedInNextPage<TPageProps> = NextPage<
+  TPageProps & {viewer: Viewer}
+>;
+export function withSignin<TPageProps>(Page: SignedInNextPage<TPageProps>) {
+  return (props: TPageProps) => {
     const viewer = useViewer();
     if (viewer === undefined) return <p>LOADING</p>;
     if (viewer === null) return <p>UNAUTHEN</p>;
-    else return <Page />;
+    else return <Page viewer={viewer} {...props} />;
   };
-};
+}

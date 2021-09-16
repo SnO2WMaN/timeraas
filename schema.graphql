@@ -82,6 +82,7 @@ schema {
 type Query {
   node(id: ID!): Node
 
+  user(id: ID!): User!
   viewer: User
 
   countdown(id: ID!): Countdown!

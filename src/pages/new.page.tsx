@@ -1,14 +1,19 @@
-import {NextPage} from 'next';
+import clsx from 'clsx';
 import React from 'react';
+
+import {Form} from '~/components/NewPage/Form';
+import {SignedInNextPage, withSignin} from '~/lib/withSignin';
 
 export type UrlQuery = Record<string, never>;
 export type PageProps = Record<string, never>;
 
-export const Page: NextPage<PageProps> = ({...props}) => {
+export const Page: SignedInNextPage<PageProps> = ({...props}) => {
   return (
     <>
-      <p>Wow</p>
+      <div className={clsx(['py-8'], ['flex'], ['justify-center'])}>
+        <Form />
+      </div>
     </>
   );
 };
-export default Page;
+export default withSignin(Page);

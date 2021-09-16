@@ -22,9 +22,19 @@ const ja: BaseTranslation = {
     CreateNew: '新しく作る',
     List: 'リスト',
   },
-
   ListPage: {
     LoadMore: 'もっと読み込む',
+  },
+
+  NewPage: {
+    Form: {
+      Label: {
+        Title: 'カウントダウンの名前',
+        Date: '発火する日付',
+        Time: '発火する時刻',
+      },
+      Submit: '追加する',
+    },
   },
 };
 

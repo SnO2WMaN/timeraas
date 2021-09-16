@@ -2,13 +2,13 @@ import React from 'react';
 import clsx from 'clsx';
 
 import {IconLoading} from '../Icon';
+import {LinkIndex} from '../Link';
 
 import {Signin} from './Signin';
 import {UserInfo} from './UserInfo';
 
 import {useTranslation} from '~/i18n/useTranslation';
 import {useViewer} from '~/lib/useViewer';
-import {Link} from '~/components/Link';
 
 export const Loading: React.VFC<{className?: string}> = ({className}) => {
   const {LL} = useTranslation();
@@ -45,11 +45,11 @@ export const View: React.VFC<ViewProps> = ({className, user}) => {
           'items-center',
         ])}
       >
-        <Link href="/">
+        <LinkIndex>
           <a className={clsx('text-snow-3', 'text-xl', 'italic', 'font-bold')}>
             {LL.ServiceName()}
           </a>
-        </Link>
+        </LinkIndex>
         <div className={clsx('flex-grow')} />
         <>
           {user === undefined && <Loading />}

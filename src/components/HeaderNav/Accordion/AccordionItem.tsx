@@ -1,15 +1,13 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import {Link} from '~/components/Link';
-
 export const AccordionItem: React.VFC<{
   className?: string;
-  href: React.ComponentProps<typeof Link>['href'];
+  Link: React.FC;
   Icon: React.VFC<{className?: string}>;
   text: string;
-}> = ({className, href, Icon, text}) => (
-  <Link href={href}>
+}> = ({className, Icon, text, Link}) => (
+  <Link>
     <a
       className={clsx(
         className,

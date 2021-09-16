@@ -6,6 +6,7 @@ import {AccordionItem} from './AccordionItem';
 
 import {IconList, IconPlus, IconSignout} from '~/components/Icon';
 import {useTranslation} from '~/i18n/useTranslation';
+import {LinkList, LinkNew, LinkSignOut} from '~/components/Link';
 
 export type AccordionProps = {
   className?: string;
@@ -49,19 +50,19 @@ export const Accordion: React.VFC<AccordionProps> = ({className, user}) => {
       </div>
       <div className={clsx(['pt-1', 'pb-1'], ['border-t', 'border-night-4'])}>
         <AccordionItem
-          href="/new"
+          Link={LinkNew}
           Icon={IconPlus}
           text={LL.HeaderNav.CreateNew()}
         />
         <AccordionItem
-          href="/list"
+          Link={LinkList}
           Icon={IconList}
           text={LL.HeaderNav.List()}
         />
       </div>
       <div className={clsx(['pt-1'], ['border-t', 'border-night-4'])}>
         <AccordionItem
-          href="/api/auth/signout"
+          Link={LinkSignOut}
           Icon={IconSignout}
           text={LL.Signout()}
         />

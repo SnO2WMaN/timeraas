@@ -7,9 +7,9 @@ import Head from 'next/head';
 import {getSdk} from './index.page.codegen';
 
 import {ClockFC} from '~/components/Clock';
-import {Link} from '~/components/Link';
 import {CountdownLayout} from '~/components/Layout';
 import {graphqlClient} from '~/graphql-request/client';
+import {LinkCountdownDetails} from '~/components/Link';
 
 const CountdownPageQuery = gql`
   query CountdownPage($id: ID!) {
@@ -63,9 +63,9 @@ export const Page: NextPage<
         )}
       >
         <ClockFC igniteAt={new Date(igniteAt)} />
-        <Link href={`/countdown/${id}/details`}>
+        <LinkCountdownDetails id={id}>
           <a>Details</a>
-        </Link>
+        </LinkCountdownDetails>
       </div>
     </>
   );

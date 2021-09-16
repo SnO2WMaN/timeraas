@@ -1,19 +1,15 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import {Link} from '~/components/Link';
 import {IconMore} from '~/components/Icon';
 import {useTranslation} from '~/i18n/useTranslation';
-
-export const MoreLink: React.FC<{cursor: string}> = ({children, cursor}) => (
-  <Link href={`/list?after=${cursor}`}>{children}</Link>
-);
+import {LinkList} from '~/components/Link';
 
 export type LoadMoreProps = {className?: string; endCursor: string};
 export const LoadMore: React.VFC<LoadMoreProps> = ({className, endCursor}) => {
   const {LL} = useTranslation();
   return (
-    <MoreLink cursor={endCursor}>
+    <LinkList after={endCursor}>
       <a
         className={clsx(
           className,
@@ -30,6 +26,6 @@ export const LoadMore: React.VFC<LoadMoreProps> = ({className, endCursor}) => {
           {LL.ListPage.LoadMore()}
         </span>
       </a>
-    </MoreLink>
+    </LinkList>
   );
 };

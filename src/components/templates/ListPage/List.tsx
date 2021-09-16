@@ -8,6 +8,7 @@ import {
   useGetCountdownsQuery,
 } from './List.codegen';
 import {ListItem, ListItemProps} from './ListItem';
+import {LoadMore} from './LoadMore';
 
 import {IconLoading} from '~/components/Icon';
 
@@ -49,12 +50,21 @@ const GetCountdownsQuery = gql`
 export type ComponentProps =
   | {className?: string} & (
       | {loading: true}
-      | {countdowns: ListItemProps['countdown'][]}
+      | {
+          loading: boolean;
+          countdowns: ListItemProps['countdown'][];
+          hasMore: boolean;
+          fetchMore(): void;
+        }
     );
-export const Component: React.VFC<ComponentProps> = ({className, ...props}) => {
+export const Component: React.VFC<ComponentProps> = ({
+  className,
+  loading,
+  ...props
+}) => {
   return (
     <div className={clsx(className)}>
-      {'loading' in props && (
+      {loading && !('countdown' in props) && (
         <div className={clsx('flex', 'items-center')}>
           <IconLoading />
         </div>
@@ -73,6 +83,13 @@ export const Component: React.VFC<ComponentProps> = ({className, ...props}) => {
             <ListItem key={countdown.id} countdown={countdown} />
           ))}
         </div>
+      )}
+      {'hasMore' in props && props.hasMore && (
+        <LoadMore
+          className={clsx(['mt-4'], 'w-full')}
+          loading={loading}
+          onClick={props.fetchMore}
+        />
       )}
     </div>
   );
@@ -96,6 +113,8 @@ export const List: React.VFC<ListProps> = ({
     [],
   );
   const [after, setAfter] = useState(firstByte.after);
+  const [hasMore, setHadMore] = useState(false);
+
   const [first] = useState(firstByte.first);
   const [field] = useState(firstByte.field);
   const [order] = useState(firstByte.order);
@@ -116,6 +135,7 @@ export const List: React.VFC<ListProps> = ({
         })),
       ]);
       setAfter(() => data.user.createdCountdowns.pageInfo.endCursor || null);
+      setHadMore(() => data.user.createdCountdowns.pageInfo.hasNextPage);
     }
   }, [data, loading]);
 
@@ -125,5 +145,15 @@ export const List: React.VFC<ListProps> = ({
   }, [order, field]);
 
   if (loading) return <Component {...props} loading />;
-  return <Component {...props} countdowns={countdowns} />;
+  return (
+    <Component
+      {...props}
+      loading={loading}
+      countdowns={countdowns}
+      hasMore={hasMore}
+      fetchMore={() =>
+        fetchMore({variables: {viewerId, after, field, first, order}})
+      }
+    />
+  );
 };

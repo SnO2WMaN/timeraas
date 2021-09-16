@@ -22,6 +22,10 @@ const ja: BaseTranslation = {
     CreateNew: '新しく作る',
     List: 'リスト',
   },
+
+  ListPage: {
+    LoadMore: 'もっと読み込む',
+  },
 };
 
 export default ja;

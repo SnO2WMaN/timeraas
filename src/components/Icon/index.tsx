@@ -28,6 +28,10 @@ export const IconList: React.VFC<{className?: string}> = (props) => (
   <FontAwesomeIcon icon={faListUl} fixedWidth {...props} />
 );
 
+export const IconMore: React.VFC<{className?: string}> = (props) => (
+  <FontAwesomeIcon fixedWidth icon={faPlusCircle} {...props} />
+);
+
 export const IconIgniteAt: React.VFC<{className?: string}> = (props) => (
   <FontAwesomeIcon fixedWidth icon={faFire} {...props} />
 );

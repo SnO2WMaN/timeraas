@@ -37,8 +37,8 @@ const NextMocks = [
               __typename: 'CountdownConnection',
               pageInfo: {
                 __typename: 'PageInfo',
-                hasNextPage: false,
-                endCursor: null,
+                hasNextPage: true,
+                endCursor: 'endCursor',
               },
               edges: [
                 {

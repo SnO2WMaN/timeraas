@@ -50,21 +50,13 @@ const GetCountdownsQuery = gql`
 export type ComponentProps =
   | {className?: string} & (
       | {loading: true}
-      | {
-          loading: boolean;
-          countdowns: ListItemProps['countdown'][];
-          hasMore: boolean;
-          fetchMore(): void;
-        }
+      | {countdowns: ListItemProps['countdown'][]}
+      | {countdowns: ListItemProps['countdown'][]; more: string}
     );
-export const Component: React.VFC<ComponentProps> = ({
-  className,
-  loading,
-  ...props
-}) => {
+export const Component: React.VFC<ComponentProps> = ({className, ...props}) => {
   return (
     <div className={clsx(className)}>
-      {loading && !('countdown' in props) && (
+      {'loading' in props && (
         <div className={clsx('flex', 'items-center')}>
           <IconLoading />
         </div>
@@ -84,12 +76,8 @@ export const Component: React.VFC<ComponentProps> = ({
           ))}
         </div>
       )}
-      {'hasMore' in props && props.hasMore && (
-        <LoadMore
-          className={clsx(['mt-4'], 'w-full')}
-          loading={loading}
-          onClick={props.fetchMore}
-        />
+      {'more' in props && (
+        <LoadMore className={clsx(['mt-4'], 'w-full')} endCursor={props.more} />
       )}
     </div>
   );
@@ -105,55 +93,36 @@ export type ListProps = {
     field: CountdownOrderField;
   };
 };
-export const List: React.VFC<ListProps> = ({
-  firstByte: {viewerId, ...firstByte},
-  ...props
-}) => {
+export const List: React.VFC<ListProps> = ({firstByte, ...props}) => {
   const [countdowns, setCountdowns] = useState<ListItemProps['countdown'][]>(
     [],
   );
-  const [after, setAfter] = useState(firstByte.after);
-  const [hasMore, setHadMore] = useState(false);
+  const [more, setMore] = useState<string | null | undefined>(undefined);
 
-  const [first] = useState(firstByte.first);
-  const [field] = useState(firstByte.field);
-  const [order] = useState(firstByte.order);
-  const {data, loading, fetchMore} = useGetCountdownsQuery({
-    variables: {viewerId, after, first, field, order},
-  });
+  const [result] = useGetCountdownsQuery({variables: firstByte});
+  const {data, fetching} = result;
 
   useEffect(() => {
-    if (!loading && data) {
-      setCountdowns((prev) => [
-        ...prev,
-        ...data.user.createdCountdowns.edges.map(({node}) => ({
+    if (!fetching && data) {
+      setCountdowns(() =>
+        data.user.createdCountdowns.edges.map(({node}) => ({
           id: node.id,
           title: node.title,
           igniteAt: new Date(node.igniteAt),
           createdAt: new Date(node.createdAt),
           updatedAt: new Date(node.updatedAt),
         })),
-      ]);
-      setAfter(() => data.user.createdCountdowns.pageInfo.endCursor || null);
-      setHadMore(() => data.user.createdCountdowns.pageInfo.hasNextPage);
+      );
+      setMore(
+        () =>
+          (data.user.createdCountdowns.pageInfo.hasNextPage &&
+            data.user.createdCountdowns.pageInfo.endCursor) ||
+          null,
+      );
     }
-  }, [data, loading]);
+  }, [data, fetching]);
 
-  useEffect(() => {
-    setCountdowns(() => []);
-    setAfter(null);
-  }, [order, field]);
-
-  if (loading) return <Component {...props} loading />;
-  return (
-    <Component
-      {...props}
-      loading={loading}
-      countdowns={countdowns}
-      hasMore={hasMore}
-      fetchMore={() =>
-        fetchMore({variables: {viewerId, after, field, first, order}})
-      }
-    />
-  );
+  if (fetching) return <Component {...props} loading />;
+  if (more) return <Component {...props} countdowns={countdowns} more={more} />;
+  return <Component {...props} countdowns={countdowns} />;
 };

@@ -1,6 +1,8 @@
 /* eslint-disable no-process-env */
 /* eslint-disable import/extensions */
+
 import {graphql} from 'msw';
+import * as faker from 'faker';
 
 import {
   GetCountdownsQuery,
@@ -40,30 +42,17 @@ const NextMocks = [
                 hasNextPage: true,
                 endCursor: 'endCursor',
               },
-              edges: [
-                {
-                  __typename: 'CountdownEdge',
-                  node: {
-                    __typename: 'Countdown',
-                    id: 'countdown-1',
-                    title: 'title 1',
-                    createdAt: '2021-12-31T00:00:00.000Z',
-                    updatedAt: '2021-01-01T00:00:00.000Z',
-                    igniteAt: '2021-01-01T00:00:00.000Z',
-                  },
+              edges: [...new Array(req.variables.first)].map(() => ({
+                __typename: 'CountdownEdge',
+                node: {
+                  __typename: 'Countdown',
+                  id: faker.datatype.uuid(),
+                  title: faker.lorem.words(),
+                  igniteAt: faker.date.recent().toISOString(),
+                  createdAt: faker.date.recent().toISOString(),
+                  updatedAt: faker.date.recent().toISOString(),
                 },
-                {
-                  __typename: 'CountdownEdge',
-                  node: {
-                    __typename: 'Countdown',
-                    id: 'countdown-2',
-                    title: 'title 2',
-                    createdAt: '2021-12-31T00:00:00.000Z',
-                    updatedAt: '2021-01-01T00:00:00.000Z',
-                    igniteAt: '2021-01-01T00:00:00.000Z',
-                  },
-                },
-              ],
+              })),
             },
           },
         }),

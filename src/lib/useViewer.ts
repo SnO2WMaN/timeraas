@@ -16,17 +16,18 @@ const GetViewerQuery = gql`
 export type Viewer = {id: string; image: string; name: string};
 export const useViewer = (): Viewer | null | undefined => {
   const [viewer, setViewer] = useState<Viewer | null | undefined>(undefined);
-  const {data, loading} = useGetViewerQuery();
+  const [result] = useGetViewerQuery();
+  const {data, fetching} = result;
 
   useEffect(() => {
-    if (!loading && data?.viewer)
+    if (!fetching && data?.viewer)
       setViewer({
         id: data.viewer.id,
         name: data.viewer.name,
         image: data.viewer.image,
       });
-    else if (!loading && !data?.viewer) setViewer(null);
-  }, [data, loading]);
+    else if (!fetching && !data?.viewer) setViewer(null);
+  }, [data, fetching]);
 
   return viewer;
 };

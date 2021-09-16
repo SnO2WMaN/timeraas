@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import React from 'react';
 
 import {IconCreatedAt, IconIgniteAt, IconUpdatedAt} from '~/components/Icon';
+import {Link} from '~/components/Link';
 import {useTranslation} from '~/i18n/useTranslation';
 
 export type ComponentProps = {
@@ -37,9 +38,11 @@ export const Component: React.VFC<ComponentProps> = ({
       )}
     >
       <a className={clsx(['col-span-full'])}>
-        <p className={clsx('text-snow-3', ['text-2xl'], ['font-bold'])}>
-          {title}
-        </p>
+        <Link href={`/countdowns/${id}`}>
+          <a className={clsx('text-snow-3', ['text-2xl'], ['font-bold'])}>
+            {title}
+          </a>
+        </Link>
       </a>
       <div className={clsx(['col-span-full'], ['flex', 'items-center'])}>
         <IconIgniteAt className={clsx(['text-aurora-2'], ['text-sm'])} />

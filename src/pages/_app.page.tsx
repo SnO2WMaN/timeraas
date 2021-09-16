@@ -1,15 +1,15 @@
 import React from 'react';
 import {AppProps} from 'next/app';
 import {SessionProvider} from 'next-auth/react';
-import {ApolloProvider} from '@apollo/client';
-import {config as FontAwesomeConfig} from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
+import {config as FontAwesomeConfig} from '@fortawesome/fontawesome-svg-core';
+import {Provider as UrqlProvider} from 'urql';
 
 import {DefaultLayout} from '~/components/Layout';
-import {createApolloClient} from '~/apollo/client';
 import {localeDetector} from '~/i18n/detector';
 import TypesafeI18n from '~/i18n/i18n-react';
 import '~/styles/index.css';
+import {createUrqlClient} from '~/urql/client';
 
 // eslint-disable-next-line no-process-env
 if (process.env.NEXT_PUBLIC_API_MOCKING_ENABLED) require('../mocks');
@@ -23,19 +23,19 @@ const App = ({
 }: AppProps) => {
   const detectedLocales = localeDetector(router);
 
-  const apolloClient = createApolloClient();
+  const urqlClient = createUrqlClient();
 
   const Layout = Component.layout ?? DefaultLayout;
 
   return (
     <SessionProvider session={session}>
-      <ApolloProvider client={apolloClient}>
+      <UrqlProvider value={urqlClient}>
         <TypesafeI18n initialLocale={detectedLocales}>
           <Layout>
             <Component {...pageProps} />
           </Layout>
         </TypesafeI18n>
-      </ApolloProvider>
+      </UrqlProvider>
     </SessionProvider>
   );
 };

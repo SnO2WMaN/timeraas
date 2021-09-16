@@ -20,7 +20,7 @@ generates:
     plugins:
       - typescript
       - typescript-operations
-      - typescript-react-apollo
+      - typescript-urql
 
   ./src/lib/codegen.ts:
     plugins:
@@ -37,7 +37,7 @@ generates:
     plugins:
       - typescript
       - typescript-operations
-      - typescript-react-apollo
+      - typescript-urql
 
   ./src/mocks/codegen.ts:
     plugins:

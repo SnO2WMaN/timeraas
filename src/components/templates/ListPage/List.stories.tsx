@@ -39,5 +39,5 @@ Listed.args = {
       updatedAt: new Date(),
     },
   ],
-  hasMore: true,
+  more: 'cursor',
 };

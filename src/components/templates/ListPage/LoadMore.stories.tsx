@@ -9,8 +9,5 @@ export default {
   argTypes: {},
 } as Meta;
 
-export const Active: Story<LoadMoreProps> = (args) => <LoadMore {...args} />;
-Active.args = {loading: true};
-
-export const Loading: Story<LoadMoreProps> = (args) => <LoadMore {...args} />;
-Loading.args = {loading: false};
+export const Primary: Story<LoadMoreProps> = (args) => <LoadMore {...args} />;
+Primary.args = {};

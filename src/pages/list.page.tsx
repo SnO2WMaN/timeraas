@@ -14,7 +14,7 @@ export type PageProps = Record<string, never>;
 export const Page: SignedInNextPage<PageProps> = ({viewer, ...props}) => {
   const firstByte: ListProps['firstByte'] = {
     viewerId: viewer.id,
-    first: 10,
+    first: 6,
     order: OrderDirection.Asc,
     field: CountdownOrderField.IgniteAt,
     after: null,

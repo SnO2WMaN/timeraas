@@ -35,5 +35,10 @@ module.exports = {
       1: 1,
       infinity: 2147483647,
     },
+    extend: {
+      fontFamily: {
+        timeleap: ['Timeleap', 'monospace'],
+      },
+    },
   },
 };

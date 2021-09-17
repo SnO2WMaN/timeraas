@@ -38,6 +38,8 @@ const ja: BaseTranslation = {
       NoticeTimeZone: 'タイムゾーンは{timeZone:string}です。',
       NoticeInputDateTime: '発火時刻を入力してください',
       Submit: '追加する',
+      Submitting: '追加中',
+      SubmitSuccess: '追加しました',
     },
   },
 };

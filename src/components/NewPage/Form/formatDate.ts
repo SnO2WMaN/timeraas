@@ -8,7 +8,4 @@ export const formatDate = ({
   date: string;
   time: string;
   timeZone: string;
-}): Date => {
-  console.dir({date, time, timeZone});
-  return zonedTimeToUtc(`${date} ${time}`, timeZone);
-};
+}): Date => zonedTimeToUtc(`${date} ${time}`, timeZone);

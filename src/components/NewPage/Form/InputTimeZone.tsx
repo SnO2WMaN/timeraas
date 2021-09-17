@@ -39,9 +39,9 @@ export const InputTimeZone: React.VFC<{className?: string}> = ({
           ['px-4'],
           ['py-2'],
           ['rounded'],
-          ['bg-night-2'],
+          ['bg-night-2', 'disabled:bg-night-1'],
           ['border', 'border-night-4'],
-          ['text-snow-3'],
+          ['text-snow-3', 'disabled:text-night-4'],
         )}
         id="timezone"
         type="text"

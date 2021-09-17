@@ -41,4 +41,10 @@ module.exports = {
       },
     },
   },
+  variants: {
+    extend: {
+      textColor: ['disabled'],
+      backgroundColor: ['disabled'],
+    },
+  },
 };

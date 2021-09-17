@@ -1,7 +1,9 @@
 import clsx from 'clsx';
 import gql from 'graphql-tag';
-import React from 'react';
+import React, {useMemo} from 'react';
 import {FormProvider, useForm} from 'react-hook-form';
+import {useRouter} from 'next/router';
+import {useTimeoutFn} from 'react-use';
 
 import {useCreateCountdownMutation} from './index.codegen';
 import {formatDate} from './formatDate';
@@ -10,10 +12,10 @@ import {InputDate} from './InputDate';
 import {InputTime} from './InputTime';
 import {InputTimeZone} from './InputTimeZone';
 import {FormData} from './formTypes';
-import {SubmitButton} from './SubmitButton';
 import {PreviewDateTime} from './PreviewDateTime';
+import {SubmitButton} from './SubmitButton';
 
-import {useTranslation} from '~/i18n/useTranslation';
+import {IconLoading} from '~/components/Icon';
 
 const CreateCountdownMutation = gql`
   mutation CreateCountdown($title: String!, $igniteAt: DateTime!) {
@@ -28,18 +30,17 @@ const CreateCountdownMutation = gql`
 `;
 export type ComponentProps = {
   className?: string;
-
   onSubmit(): void;
   submitting: boolean;
+  success: boolean;
 };
 export const Component: React.VFC<ComponentProps> = ({
   className,
   onSubmit,
   submitting,
+  success,
   ...props
 }) => {
-  const {LL} = useTranslation();
-
   return (
     <form
       className={clsx(
@@ -61,7 +62,11 @@ export const Component: React.VFC<ComponentProps> = ({
       <InputTime className={clsx('col-span-1')} />
       <InputTimeZone className={clsx('col-span-full')} />
       <PreviewDateTime className={clsx('col-span-full')} />
-      <SubmitButton className={clsx('col-span-full')} submitting={submitting} />
+      <SubmitButton
+        className={clsx('col-span-full')}
+        submitting={submitting}
+        success={success}
+      />
     </form>
   );
 };
@@ -74,8 +79,12 @@ export const Form: React.VFC<FormProps> = ({...props}) => {
       timeZone: new Intl.DateTimeFormat().resolvedOptions().timeZone,
     },
   });
-
   const {fetching, data} = result;
+
+  const newId = useMemo(
+    () => data?.createCountdown.countdown.id || null,
+    [data],
+  );
 
   return (
     <FormProvider {...methods}>
@@ -88,7 +97,20 @@ export const Form: React.VFC<FormProps> = ({...props}) => {
           }),
         )}
         submitting={fetching}
+        success={Boolean(newId)}
       />
+      {newId && <PageMover id={newId} />}
     </FormProvider>
   );
+};
+
+export const PageMover: React.VFC<{id: string}> = ({id}) => {
+  const router = useRouter();
+
+  const [isReady, cancel, reset] = useTimeoutFn(
+    () => router.push(`/countdowns/${id}`),
+    500,
+  );
+
+  return <IconLoading />;
 };

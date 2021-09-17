@@ -34,7 +34,7 @@ export const Component: React.VFC<ComponentProps> = ({className, ...props}) => {
       {'preview' in props && (
         <>
           <time className={clsx(['mt-2'], ['text-xl'], ['text-frost-2'])}>
-            {LL.FormatDate.LongDateTime(props.preview)}
+            {LL.FormatDate.MediumDateTime(props.preview)}
           </time>
           <p className={clsx(['mt-1'], ['text-sm'], ['text-snow-1'])}>
             {LL.NewPage.Form.NoticeTimeZone({timeZone: props.timeZone})}

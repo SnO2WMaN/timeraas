@@ -9,6 +9,10 @@ import {
   GetCountdownsQueryVariables,
 } from '~/components/ListPage/List.codegen';
 import {GetViewerQuery, GetViewerQueryVariables} from '~/lib/useViewer.codegen';
+import {
+  CreateCountdownMutationVariables,
+  CreateCountdownMutation,
+} from '~/components/NewPage/Form/index.codegen';
 
 const NextMocks = [
   graphql.query<GetViewerQuery, GetViewerQueryVariables>(
@@ -16,6 +20,7 @@ const NextMocks = [
     (req, res, ctx) => {
       return res(
         ctx.data({
+          __typename: 'Query',
           viewer: {
             __typename: 'User',
             id: 'user-1',
@@ -32,6 +37,7 @@ const NextMocks = [
     (req, res, ctx) => {
       return res(
         ctx.data({
+          __typename: 'Query',
           user: {
             __typename: 'User',
             id: 'user-1',
@@ -53,6 +59,24 @@ const NextMocks = [
                   updatedAt: faker.date.recent().toISOString(),
                 },
               })),
+            },
+          },
+        }),
+      );
+    },
+  ),
+  graphql.mutation<CreateCountdownMutation, CreateCountdownMutationVariables>(
+    'CreateCountdown',
+    (req, res, ctx) => {
+      return res(
+        ctx.data({
+          __typename: 'Mutation',
+          createCountdown: {
+            countdown: {
+              __typename: 'Countdown',
+              id: faker.datatype.uuid(),
+              title: req.variables.title,
+              igniteAt: req.variables.igniteAt,
             },
           },
         }),

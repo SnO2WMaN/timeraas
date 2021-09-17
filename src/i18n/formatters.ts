@@ -8,8 +8,8 @@ export const initFormatters: FormattersInitializer<Locales, Formatters> = (
 ) => {
   const formatters: Formatters = {
     longDateTime: date(locale, {
-      dateStyle: 'medium',
-      timeStyle: 'medium',
+      dateStyle: 'long',
+      timeStyle: 'long',
     }),
     mediumDateTime: date(locale, {
       dateStyle: 'medium',

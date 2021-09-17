@@ -5,6 +5,7 @@ import {
   faClock,
   faEdit,
   faFire,
+  faGlobe,
   faListUl,
   faPlus,
   faPlusCircle,
@@ -40,6 +41,10 @@ export const IconDate: React.VFC<{className?: string}> = (props) => (
 export const IconTime: React.VFC<{className?: string}> = (props) => (
   <FontAwesomeIcon fixedWidth icon={faClock} {...props} />
 );
+export const IconTimeZone: React.VFC<{className?: string}> = (props) => (
+  <FontAwesomeIcon fixedWidth icon={faGlobe} {...props} />
+);
+export const IconPreviewIgniteAt = IconTime;
 export const IconAdd = IconPlus;
 
 export const IconMore: React.VFC<{className?: string}> = (props) => (

@@ -1,17 +1,9 @@
-import {PrismaClient} from '@prisma/client';
+import {ResolverCreateCountdown} from './utils/types';
 
-export const createCountdown = (
-  prisma: PrismaClient,
-  {userId, title, igniteAt}: {userId: string; title: string; igniteAt: Date},
-): Promise<{
-  countdown: {
-    id: string;
-    title: string;
-    igniteAt: Date;
-    createdAt: Date;
-    updatedAt: Date;
-  };
-}> => {
+export const createCountdown: ResolverCreateCountdown = (
+  prisma,
+  {userId, title, igniteAt},
+) => {
   return prisma.countdown
     .create({
       data: {
@@ -25,6 +17,7 @@ export const createCountdown = (
         igniteAt: true,
         createdAt: true,
         updatedAt: true,
+        createdBy: {select: {id: true}},
       },
     })
     .then((countdown) => ({countdown}));

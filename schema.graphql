@@ -80,13 +80,16 @@ schema {
 }
 
 type Query {
-  node(id: ID!): Node
-
   user(id: ID!): User!
+  findUser(id: ID!): FindUserPayload!
   viewer: User
 
   countdown(id: ID!): Countdown!
   findCountdown(id: ID!): FindCountdownPayload!
+}
+
+type FindUserPayload {
+  user: User
 }
 
 type FindCountdownPayload {

@@ -1,26 +1,50 @@
 import {ApolloServer, makeExecutableSchema} from 'apollo-server-micro';
 import {getSession} from 'next-auth/react';
 
-import {findCountdown, getCountdown, getViewer} from './query';
+import {parsePaginationArgs, parseCountdownOrder} from './args';
+import {Context} from './context';
+import {
+  getCreatedCountdowns,
+  createCountdown,
+  findCountdown,
+  findUser,
+  getCountdown,
+  getUser,
+} from './resolvers';
 import {Resolvers, typeDefs} from './codegen';
-import {createCountdown} from './mutation';
 
 import {prismaClient} from '~/prisma/client';
 
+export const AuthError = Error;
+
 export const config = {api: {bodyParser: false}};
 
-const getUserId = (ctx: any): Promise<string | null> =>
-  getSession({req: ctx.req}).then((session) => session?.user.id || null);
-
 const resolvers: Resolvers = {
+  User: {
+    createdCountdowns({id}, {order, ...pagination}) {
+      const parsedPagination = parsePaginationArgs(pagination);
+      const parsedOrder = parseCountdownOrder(order);
+      return getCreatedCountdowns(prismaClient, {
+        id,
+        pagination: parsedPagination,
+        orderBy: parsedOrder,
+      });
+    },
+  },
   Countdown: {
-    createdBy(parent) {},
+    createdBy({createdBy: {id}}) {},
   },
   Query: {
-    async viewer(parent, args, ctx) {
-      const userId = await getUserId(ctx);
-      if (!userId) return null;
-      return getViewer(prismaClient, {userId});
+    user(parent, args, ctx) {
+      return getUser(prismaClient, {id: args.id});
+    },
+    findUser(parent, args, ctx) {
+      return findUser(prismaClient, {id: args.id});
+    },
+    viewer(parent, args, ctx) {
+      const id = ctx['x-user-id'];
+      if (!id) return null;
+      return getUser(prismaClient, {id});
     },
     countdown(parent, args) {
       return getCountdown(prismaClient, {id: args.id});
@@ -31,8 +55,8 @@ const resolvers: Resolvers = {
   },
   Mutation: {
     async createCountdown(parent, args, ctx) {
-      const userId = await getUserId(ctx);
-      if (!userId) throw new Error();
+      const userId = ctx['x-user-id'];
+      if (!userId) throw new AuthError();
       return createCountdown(prismaClient, {
         userId,
         title: args.title,
@@ -46,8 +70,10 @@ const schema = makeExecutableSchema({typeDefs, resolvers});
 
 const server = new ApolloServer({
   schema,
-  async context(ctx) {
-    return ctx;
+  async context(ctx): Promise<Context> {
+    const session = await getSession({req: ctx.req});
+    const userId = session?.user.id || null;
+    return {'x-user-id': userId};
   },
 });
 

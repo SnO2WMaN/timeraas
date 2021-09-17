@@ -1,65 +1,73 @@
 schema: ./schema.graphql
 
-config:
-  scalars:
-    DateTime: string
-
 generates:
   ./src/components/codegen.ts:
     plugins:
       - typescript
+    config:
+      scalars:
+        DateTime: string
 
   ./src/components/:
     preset: near-operation-file
     documents:
       - 'src/components/**/*.{ts,tsx}'
       - '!src/components/**/*.codegen.ts'
-    presetConfig:
-      baseTypesPath: ./codegen.ts
-      extension: .codegen.ts
     plugins:
       - typescript
       - typescript-operations
       - typescript-urql
+    config:
+      scalars:
+        DateTime: string
+    presetConfig:
+      baseTypesPath: ./codegen.ts
+      extension: .codegen.ts
 
   ./src/lib/codegen.ts:
     plugins:
       - typescript
+    config:
+      scalars:
+        DateTime: string
 
   ./src/lib/:
     preset: near-operation-file
     documents:
       - 'src/lib/**/*.ts'
       - '!src/lib/**/*.codegen.ts'
-    presetConfig:
-      baseTypesPath: ./codegen.ts
-      extension: .codegen.ts
     plugins:
       - typescript
       - typescript-operations
       - typescript-urql
-
-  ./src/mocks/codegen.ts:
-    plugins:
-      - typescript
-      - typescript-resolvers
-      - typescript-operations
+    config:
+      scalars:
+        DateTime: string
+    presetConfig:
+      baseTypesPath: ./codegen.ts
+      extension: .codegen.ts
 
   ./src/pages/codegen.ts:
     plugins:
       - typescript
+    config:
+      scalars:
+        DateTime: string
 
   ./src/pages/:
     preset: near-operation-file
     documents:
       - src/pages/**/*.page.tsx
-    presetConfig:
-      baseTypesPath: ./codegen.ts
-      extension: .codegen.ts
     plugins:
       - typescript
       - typescript-operations
       - typescript-graphql-request
+    config:
+      scalars:
+        DateTime: string
+    presetConfig:
+      baseTypesPath: ./codegen.ts
+      extension: .codegen.ts
 
   ./src/pages/api/graphql/codegen.ts:
     plugins:
@@ -69,3 +77,6 @@ generates:
       - ./codegen/typescript-typedefs.js
     config:
       useIndexSignature: true
+      contextType: ./context#Context
+      scalars:
+        DateTime: Date

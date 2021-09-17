@@ -13,6 +13,14 @@ import {
   CreateCountdownMutationVariables,
   CreateCountdownMutation,
 } from '~/components/NewPage/Form/index.codegen';
+import {
+  CountdownPageQuery,
+  CountdownPageQueryVariables,
+} from '~/pages/countdowns/[id]/index.page.codegen';
+import {
+  CountdownDetailsPageQuery,
+  CountdownDetailsPageQueryVariables,
+} from '~/pages/countdowns/[id]/details.page.codegen';
 
 const NextMocks = [
   graphql.query<GetViewerQuery, GetViewerQueryVariables>(
@@ -55,8 +63,8 @@ const NextMocks = [
                   id: faker.datatype.uuid(),
                   title: faker.lorem.words(),
                   igniteAt: faker.date.recent().toISOString(),
-                  createdAt: faker.date.recent().toISOString(),
-                  updatedAt: faker.date.recent().toISOString(),
+                  createdAt: faker.date.past().toISOString(),
+                  updatedAt: faker.date.past().toISOString(),
                 },
               })),
             },
@@ -64,6 +72,52 @@ const NextMocks = [
         }),
       );
     },
+  ),
+  graphql.query<CountdownPageQuery, CountdownPageQueryVariables>(
+    'CountdownPage',
+    (req, res, ctx) =>
+      res(
+        ctx.data({
+          __typename: 'Query',
+          findCountdown: {
+            __typename: 'FindCountdownPayload',
+            countdown: {
+              id: req.variables.id,
+              title: faker.lorem.words(),
+              igniteAt: faker.date.future().toISOString(),
+              createdBy: {
+                id: 'user-1',
+                name: 'SnO2WMaN',
+                image:
+                  'https://pbs.twimg.com/profile_images/1413844612368658432/bT8eYwSC_400x400.png',
+              },
+            },
+          },
+        }),
+      ),
+  ),
+  graphql.query<CountdownDetailsPageQuery, CountdownDetailsPageQueryVariables>(
+    'CountdownDetailsPage',
+    (req, res, ctx) =>
+      res(
+        ctx.data({
+          __typename: 'Query',
+          findCountdown: {
+            __typename: 'FindCountdownPayload',
+            countdown: {
+              id: req.variables.id,
+              title: faker.lorem.words(),
+              igniteAt: faker.date.future().toISOString(),
+              createdBy: {
+                id: 'user-1',
+                name: 'SnO2WMaN',
+                image:
+                  'https://pbs.twimg.com/profile_images/1413844612368658432/bT8eYwSC_400x400.png',
+              },
+            },
+          },
+        }),
+      ),
   ),
   graphql.mutation<CreateCountdownMutation, CreateCountdownMutationVariables>(
     'CreateCountdown',

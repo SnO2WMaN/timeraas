@@ -34,7 +34,15 @@ export const InputTitle: React.VFC<{className?: string}> = ({
         </span>
       </span>
       <input
-        className={clsx(['mt-2'])}
+        className={clsx(
+          ['mt-2'],
+          ['px-4'],
+          ['py-2'],
+          ['rounded'],
+          ['bg-night-2'],
+          ['border', 'border-night-4'],
+          ['text-snow-3'],
+        )}
         id="title"
         type="text"
         required

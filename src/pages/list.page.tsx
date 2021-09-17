@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React from 'react';
 
 import {
@@ -22,7 +23,9 @@ export const Page: SignedInNextPage<PageProps> = ({viewer, ...props}) => {
 
   return (
     <>
-      <List firstByte={firstByte} />
+      <div className={clsx(['py-8'])}>
+        <List className={clsx('w-full')} firstByte={firstByte} />
+      </div>
     </>
   );
 };

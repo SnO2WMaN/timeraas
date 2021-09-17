@@ -55,7 +55,15 @@ export type ComponentProps =
     );
 export const Component: React.VFC<ComponentProps> = ({className, ...props}) => {
   return (
-    <div className={clsx(className)}>
+    <div
+      className={clsx(
+        className,
+        ['px-8'],
+        ['py-8'],
+        ['bg-night-2'],
+        ['border', 'border-night-4'],
+      )}
+    >
       {'loading' in props && (
         <div className={clsx('flex', 'items-center')}>
           <IconLoading />

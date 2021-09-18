@@ -1,8 +1,7 @@
 import {ApolloServer, makeExecutableSchema} from 'apollo-server-micro';
-import {getSession} from 'next-auth/react';
+import {getToken} from 'next-auth/jwt';
 
 import {parsePaginationArgs, parseCountdownOrder} from './args';
-import {Context} from './context';
 import {
   getCreatedCountdowns,
   createCountdown,
@@ -32,7 +31,9 @@ const resolvers: Resolvers = {
     },
   },
   Countdown: {
-    createdBy({createdBy: {id}}) {},
+    createdBy({createdBy: {id}}) {
+      return getUser(prismaClient, {id});
+    },
   },
   Query: {
     user(parent, args, ctx) {
@@ -56,7 +57,7 @@ const resolvers: Resolvers = {
   Mutation: {
     async createCountdown(parent, args, ctx) {
       const userId = ctx['x-user-id'];
-      if (!userId) throw new AuthError();
+      if (!userId) throw new AuthError('AuthError');
       return createCountdown(prismaClient, {
         userId,
         title: args.title,
@@ -70,9 +71,17 @@ const schema = makeExecutableSchema({typeDefs, resolvers});
 
 const server = new ApolloServer({
   schema,
-  async context(ctx): Promise<Context> {
-    const session = await getSession({req: ctx.req});
-    const userId = session?.user.id || null;
+  async context(ctx) {
+    const token = await getToken({
+      req: ctx.req,
+      encryption: true,
+      /* eslint-disable no-process-env */
+      secret: process.env.NEXTAUTH_JWT_SECRET,
+      signingKey: process.env.NEXTAUTH_JWT_SIGNING_KEY,
+      encryptionKey: process.env.NEXTAUTH_JWT_ENCRYPTION_KEY,
+      /* eslint-enable no-process-env */
+    });
+    const userId = token?.sub || null;
     return {'x-user-id': userId};
   },
 });

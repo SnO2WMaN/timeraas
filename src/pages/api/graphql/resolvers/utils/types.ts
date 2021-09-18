@@ -1,15 +1,17 @@
 import {PrismaClient} from '@prisma/client';
 
-export type User = {id: string; name: string; image: string};
+export type User = {
+  id: string;
+  name: string;
+  image: string;
+};
 export type Countdown = {
   id: string;
   title: string;
   igniteAt: Date;
   createdAt: Date;
   updatedAt: Date;
-  createdBy: {
-    id: string;
-  };
+  createdBy: {id: string};
 };
 
 export type PaginationArgs =

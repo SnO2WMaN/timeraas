@@ -21,6 +21,4 @@ export default {
 } as Meta;
 
 export const Primary: Story<ComponentProps> = (args) => <Component {...args} />;
-Primary.args = {
-  timezone: 'Asia/Tokyo',
-};
+Primary.args = {};

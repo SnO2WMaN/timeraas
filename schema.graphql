@@ -5,10 +5,6 @@ enum OrderDirection {
   DESC
 }
 
-interface Node {
-  id: ID!
-}
-
 type PageInfo {
   hasNextPage: Boolean!
   hasPreviousPage: Boolean!
@@ -16,7 +12,7 @@ type PageInfo {
   endCursor: String
 }
 
-type User implements Node {
+type User {
   id: ID!
 
   name: String!
@@ -41,7 +37,7 @@ type UserConnection {
   pageInfo: PageInfo!
 }
 
-type Countdown implements Node {
+type Countdown {
   id: ID!
 
   title: String!

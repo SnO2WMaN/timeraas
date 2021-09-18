@@ -77,6 +77,9 @@ generates:
       - ./codegen/typescript-typedefs.js
     config:
       useIndexSignature: true
-      contextType: ./context#Context
+      contextType: ./codegen-types#Context
+      mappers:
+        User: ./codegen-types#UserModel
+        Countdown: ./codegen-types#CountdownModel
       scalars:
         DateTime: Date

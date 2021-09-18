@@ -7,7 +7,14 @@ import {prismaClient} from '~/prisma/client';
 
 export default NextAuth({
   debug: process.env.NODE_ENV === 'development',
+  session: {jwt: true},
   secret: process.env.NEXTAUTH_SECRET,
+  jwt: {
+    encryption: true,
+    secret: process.env.NEXTAUTH_JWT_SECRET,
+    signingKey: process.env.NEXTAUTH_JWT_SIGNING_KEY,
+    encryptionKey: process.env.NEXTAUTH_JWT_ENCRYPTION_KEY,
+  },
   adapter: PrismaAdapter(prismaClient),
   providers: [
     TwitterProvider({
@@ -15,9 +22,5 @@ export default NextAuth({
       clientSecret: process.env.TWITTER_CLIENT_SECRET,
     }),
   ],
-  callbacks: {
-    session({session, user}) {
-      return {...session, user: {...session.user, id: user.id}};
-    },
-  },
+  callbacks: {},
 });

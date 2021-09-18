@@ -1,0 +1,118 @@
+scalar DateTime
+
+interface Node {
+  id: ID!
+}
+
+interface Edge {
+  node: Node!
+  cursor: String!
+}
+
+interface Connection {
+  edges: [Edge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+enum OrderDirection {
+  ASC
+  DESC
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type User implements Node {
+  id: ID!
+
+  name: String!
+  image: String!
+
+  createdCountdowns(
+    first: Int
+    after: String
+    last: Int
+    before: String
+    order: CountdownOrder = {order: DESC, field: CREATED_AT}
+  ): CountdownConnection!
+}
+
+type UserEdge implements Edge {
+  node: User!
+  cursor: String!
+}
+
+type UserConnection implements Connection {
+  edges: [UserEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type Countdown implements Node {
+  id: ID!
+
+  title: String!
+
+  igniteAt: DateTime!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+
+  createdBy: User!
+}
+
+type CountdownEdge implements Edge {
+  node: Countdown!
+  cursor: String!
+}
+
+type CountdownConnection implements Connection {
+  edges: [CountdownEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input CountdownOrder {
+  order: OrderDirection!
+  field: CountdownOrderField!
+}
+
+enum CountdownOrderField {
+  IGNITE_AT
+  CREATED_AT
+  UPDATED_AT
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  user(id: ID!): User!
+  findUser(id: ID!): FindUserPayload!
+  viewer: User
+
+  countdown(id: ID!): Countdown!
+  findCountdown(id: ID!): FindCountdownPayload!
+}
+
+type FindUserPayload {
+  user: User
+}
+
+type FindCountdownPayload {
+  countdown: Countdown
+}
+
+type Mutation {
+  createCountdown(title: String!, igniteAt: DateTime!): CreateCountdownPayload!
+}
+
+type CreateCountdownPayload {
+  countdown: Countdown!
+}

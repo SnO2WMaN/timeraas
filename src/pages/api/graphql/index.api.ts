@@ -1,7 +1,6 @@
 import {ApolloServer, makeExecutableSchema} from 'apollo-server-micro';
 import {getToken} from 'next-auth/jwt';
 
-import {parsePaginationArgs, parseCountdownOrder} from './args';
 import {
   getCreatedCountdowns,
   createCountdown,
@@ -11,6 +10,7 @@ import {
   getUser,
 } from './resolvers';
 import {Resolvers, typeDefs} from './codegen';
+import {parseCountdownOrder} from './args';
 
 import {prismaClient} from '~/prisma/client';
 
@@ -21,12 +21,10 @@ export const config = {api: {bodyParser: false}};
 const resolvers: Resolvers = {
   User: {
     createdCountdowns({id}, {order, ...pagination}) {
-      const parsedPagination = parsePaginationArgs(pagination);
-      const parsedOrder = parseCountdownOrder(order);
       return getCreatedCountdowns(prismaClient, {
         id,
-        pagination: parsedPagination,
-        orderBy: parsedOrder,
+        orderBy: parseCountdownOrder(order),
+        pagination,
       });
     },
   },

@@ -1223,6 +1223,11 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@devoxa/prisma-relay-cursor-connection@^2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@devoxa/prisma-relay-cursor-connection/-/prisma-relay-cursor-connection-2.0.3.tgz#f50fe6e83da6478427a2d2b6c3f0cbcd07668860"
+  integrity sha512-eHAYAsr6Wii/c+Q0E5niI4rRtrrmMRx3XbsJXSBK8JyXr8eN4VhshhLWyh/xMD4vaPgBvzfFqRuOeNlMxfX6lQ==
+
 "@discoveryjs/json-ext@^0.5.3":
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.3.tgz#90420f9f9c6d3987f176a19a7d8e764271a2f55d"

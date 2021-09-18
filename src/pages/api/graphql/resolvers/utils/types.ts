@@ -14,17 +14,14 @@ export type Countdown = {
   createdBy: {id: string};
 };
 
-export type PaginationArgs =
-  | {first: number; after: string | null}
-  | {last: number; before: string | null};
-export type OrderByArgs<T extends string> = {field: T; order: 'asc' | 'desc'};
-
 export type Edge<T> = {node: T; cursor: string};
 export type Connection<T extends {id: string}> = {
   edges: Edge<T>[];
   pageInfo: {
-    startCursor: string | null;
-    endCursor: string | null;
+    startCursor?: string;
+    endCursor?: string;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
   };
 };
 
@@ -55,7 +52,15 @@ export type ResolverGetUserCreatedCountdowns = (
   client: PrismaClient,
   args: {
     id: string;
-    pagination: PaginationArgs;
-    orderBy: OrderByArgs<'igniteAt' | 'createdAt' | 'updatedAt'>;
+    orderBy:
+      | {igniteAt: 'asc' | 'desc'}
+      | {createdAt: 'asc' | 'desc'}
+      | {updatedAt: 'asc' | 'desc'};
+    pagination: {
+      first?: number | null;
+      after?: string | null;
+      last?: number | null;
+      before?: string | null;
+    };
   },
 ) => Promise<Connection<Countdown>>;

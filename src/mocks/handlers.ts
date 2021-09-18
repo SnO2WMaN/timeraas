@@ -2,7 +2,7 @@
 /* eslint-disable import/extensions */
 
 import {graphql} from 'msw';
-import * as faker from 'faker';
+import faker from 'faker';
 
 import {
   GetCountdownsQuery,
@@ -22,7 +22,7 @@ import {
   CountdownDetailsPageQueryVariables,
 } from '~/pages/countdowns/[id]/details.page.codegen';
 
-const NextMocks = [
+const devMocks = [
   graphql.query<GetViewerQuery, GetViewerQueryVariables>(
     'GetViewer',
     (req, res, ctx) => {
@@ -140,5 +140,5 @@ const NextMocks = [
 ];
 
 export const handlers = [
-  ...(process.env.NEXT_PUBLIC_API_MOCKING_ENABLED ? NextMocks : []),
+  ...(process.env.NODE_ENV === 'development' ? devMocks : []),
 ];

@@ -23,6 +23,7 @@ export type Connection<T extends {id: string}> = {
     hasNextPage: boolean;
     hasPreviousPage: boolean;
   };
+  totalCount: number;
 };
 
 export type ResolverCreateCountdown = (

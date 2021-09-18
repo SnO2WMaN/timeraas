@@ -2,10 +2,8 @@ import {findManyCursorConnection} from '@devoxa/prisma-relay-cursor-connection';
 
 import {ResolverGetUserCreatedCountdowns} from './utils/types';
 
-import {PrismaClient} from '.prisma/client';
-
 export const getCreatedCountdowns: ResolverGetUserCreatedCountdowns = async (
-  client: PrismaClient,
+  client,
   {id, orderBy, pagination},
 ) =>
   findManyCursorConnection(

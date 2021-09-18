@@ -1,5 +1,20 @@
 scalar DateTime
 
+interface Node {
+  id: ID!
+}
+
+interface Edge {
+  node: Node!
+  cursor: String!
+}
+
+interface Connection {
+  edges: [Edge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 enum OrderDirection {
   ASC
   DESC
@@ -12,7 +27,7 @@ type PageInfo {
   endCursor: String
 }
 
-type User {
+type User implements Node {
   id: ID!
 
   name: String!
@@ -27,17 +42,18 @@ type User {
   ): CountdownConnection!
 }
 
-type UserEdge {
+type UserEdge implements Edge {
   node: User!
   cursor: String!
 }
 
-type UserConnection {
+type UserConnection implements Connection {
   edges: [UserEdge!]!
   pageInfo: PageInfo!
+  totalCount: Int!
 }
 
-type Countdown {
+type Countdown implements Node {
   id: ID!
 
   title: String!
@@ -49,14 +65,15 @@ type Countdown {
   createdBy: User!
 }
 
-type CountdownEdge {
+type CountdownEdge implements Edge {
   node: Countdown!
   cursor: String!
 }
 
-type CountdownConnection {
+type CountdownConnection implements Connection {
   edges: [CountdownEdge!]!
   pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 input CountdownOrder {

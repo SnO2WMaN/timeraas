@@ -1,16 +1,14 @@
 import {ApolloServer, makeExecutableSchema} from 'apollo-server-micro';
 import {getToken} from 'next-auth/jwt';
 
-import {
-  getCreatedCountdowns,
-  createCountdown,
-  findCountdown,
-  findUser,
-  getCountdown,
-  getUser,
-} from './resolvers';
 import {Resolvers, typeDefs} from './codegen';
-import {parseCountdownOrder} from './args';
+import {parseCountdownOrder} from './parse';
+import {getUser} from './resolvers/getUser';
+import {findCountdown} from './resolvers/findCountdown';
+import {findUser} from './resolvers/findUser';
+import {getCountdown} from './resolvers/getCountdown';
+import {createCountdown} from './resolvers/createCountdown';
+import {getCreatedCountdowns} from './resolvers/getUserCreatedCountdowns';
 
 import {prismaClient} from '~/prisma/client';
 

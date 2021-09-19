@@ -1,0 +1,23 @@
+name: Migration
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - migrations/
+
+jobs:
+  prisma-migrate:
+    name: Prisma Migrate
+    runs-on: ubuntu-latest
+    env:
+      PRISMA_DATABASE_URL: ${{secrets.PRISMA_DATABASE_URL}}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: yarn
+      - uses: bahmutov/npm-install@v1
+      - run: yarn prisma migrate deploy

@@ -1,4 +1,3 @@
-/* eslint-disable no-process-env */
 /* eslint-disable import/extensions */
 
 import {graphql} from 'msw';
@@ -22,7 +21,7 @@ import {
   CountdownDetailsPageQueryVariables,
 } from '~/pages/countdowns/[id]/details.page.codegen';
 
-const nextMocks = [
+const devMocks = [
   graphql.query<GetViewerQuery, GetViewerQueryVariables>(
     'GetViewer',
     (req, res, ctx) => {
@@ -139,4 +138,6 @@ const nextMocks = [
   ),
 ];
 
-export const handlers = process.env.NEXT_PUBLIC_MSW_ENABLED ? nextMocks : [];
+export const handlers =
+  // eslint-disable-next-line no-process-env
+  process.env.NODE_ENV === 'development' ? devMocks : [];

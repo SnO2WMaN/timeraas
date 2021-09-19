@@ -34,7 +34,7 @@
     "@next-auth/prisma-adapter": "^0.5.2-next.5",
     "@next/bundle-analyzer": "^11.1.2",
     "@prisma/client": "^3.0.2",
-    "apollo-server-micro": "2.13.1",
+    "apollo-server-micro": "2.14.2",
     "clsx": "^1.1.1",
     "date-fns": "^2.24.0",
     "date-fns-tz": "^1.1.6",

@@ -5,6 +5,7 @@ declare namespace NodeJS {
     readonly NODE_ENV: 'development' | 'production' | 'test';
 
     readonly NEXT_PUBLIC_GRAPHQL_API_ENDPOINT: string;
+    readonly NEXT_PUBLIC_MSW_ENABLED?: string;
 
     readonly NEXTAUTH_URL: string;
     readonly NEXTAUTH_SECRET: string;

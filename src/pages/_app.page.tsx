@@ -12,7 +12,7 @@ import '~/styles/index.css';
 import {createUrqlClient} from '~/urql/client';
 
 // eslint-disable-next-line no-process-env
-if (process.env.NODE_ENV === 'development') import('../mocks');
+if (process.env.NEXT_PUBLIC_MSW_ENABLED) import('../mocks');
 
 FontAwesomeConfig.autoAddCss = false;
 

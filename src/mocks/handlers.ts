@@ -22,7 +22,7 @@ import {
   CountdownDetailsPageQueryVariables,
 } from '~/pages/countdowns/[id]/details.page.codegen';
 
-const devMocks = [
+const nextMocks = [
   graphql.query<GetViewerQuery, GetViewerQueryVariables>(
     'GetViewer',
     (req, res, ctx) => {
@@ -139,6 +139,4 @@ const devMocks = [
   ),
 ];
 
-export const handlers = [
-  ...(process.env.NODE_ENV === 'development' ? devMocks : []),
-];
+export const handlers = process.env.NEXT_PUBLIC_MSW_ENABLED ? nextMocks : [];

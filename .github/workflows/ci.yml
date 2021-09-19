@@ -1,6 +1,9 @@
 name: CI
 
 on:
+  push:
+    branches:
+      - "main"
   pull_request:
 
 jobs:
@@ -42,6 +45,7 @@ jobs:
       - run: yarn run typecheck
 
   test:
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

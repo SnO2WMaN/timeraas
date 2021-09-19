@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   postgres:
-    image: postgres:13
+    image: postgres:13.4
     ports:
       - published: 5432
         target: 5432

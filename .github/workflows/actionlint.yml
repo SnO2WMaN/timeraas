@@ -3,7 +3,7 @@ name: actionlint
 on:
   push:
     branches:
-      - "main"
+      - 'main'
   pull_request:
     paths:
       - .github/workflows/**

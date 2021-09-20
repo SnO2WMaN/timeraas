@@ -1,4 +1,3 @@
-/* eslint-disable no-process-env */
 /* eslint-disable import/extensions */
 
 import {graphql} from 'msw';
@@ -139,6 +138,6 @@ const devMocks = [
   ),
 ];
 
-export const handlers = [
-  ...(process.env.NODE_ENV === 'development' ? devMocks : []),
-];
+export const handlers =
+  // eslint-disable-next-line no-process-env
+  process.env.NODE_ENV === 'development' ? devMocks : [];

@@ -3,13 +3,12 @@ import {NextPage, GetServerSideProps, InferGetServerSidePropsType} from 'next';
 import React from 'react';
 import clsx from 'clsx';
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
 
 import {getSdk} from './index.page.codegen';
 
-import {ClockFC} from '~/components/Clock';
 import {CountdownLayout} from '~/components/Layout';
 import {graphqlClient} from '~/graphql-request/client';
-import {LinkCountdownDetails} from '~/components/Link';
 
 const CountdownPageQuery = gql`
   query CountdownPage($id: ID!) {
@@ -48,6 +47,11 @@ export const getServerSideProps: GetServerSideProps<
     );
 };
 
+const NoSSRBackground = dynamic(
+  () => import('~/components/CountdownPage/Canvas'),
+  {ssr: false},
+);
+
 export const Page: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > & {layout?: React.FC} = ({id, title, igniteAt, ...props}) => {
@@ -56,17 +60,7 @@ export const Page: NextPage<
       <Head>
         <title>{title}</title>
       </Head>
-      <div
-        className={clsx(
-          ['w-full', 'h-full'],
-          ['flex', 'items-center', 'justify-center'],
-        )}
-      >
-        <ClockFC igniteAt={new Date(igniteAt)} />
-        <LinkCountdownDetails id={id}>
-          <a>Details</a>
-        </LinkCountdownDetails>
-      </div>
+      <NoSSRBackground className={clsx(['w-full', 'h-screen'])} />
     </>
   );
 };

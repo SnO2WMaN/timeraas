@@ -60,7 +60,10 @@ export const Page: NextPage<
       <Head>
         <title>{title}</title>
       </Head>
-      <NoSSRBackground className={clsx(['w-full', 'h-screen'])} />
+      <NoSSRBackground
+        className={clsx(['w-full', 'h-screen'])}
+        igniteAt={new Date(igniteAt)}
+      />
     </>
   );
 };

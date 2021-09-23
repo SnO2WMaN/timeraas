@@ -22,6 +22,7 @@ const ja: BaseTranslation = {
     CreateNew: '新しく作る',
     List: 'リスト',
   },
+
   ListPage: {
     LoadMore: 'もっと読み込む',
   },
@@ -41,6 +42,10 @@ const ja: BaseTranslation = {
       Submitting: '追加中',
       SubmitSuccess: '追加しました',
     },
+  },
+
+  CountdownPage: {
+    details: '詳細を見る',
   },
 };
 

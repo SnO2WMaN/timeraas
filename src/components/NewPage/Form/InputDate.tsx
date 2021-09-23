@@ -1,11 +1,20 @@
 import clsx from 'clsx';
 import React from 'react';
 import {useFormContext} from 'react-hook-form';
+import {add, format} from 'date-fns';
 
 import {FormData} from './formTypes';
 
 import {IconDate} from '~/components/Icon';
 import {useTranslation} from '~/i18n/useTranslation';
+
+export const useDuration = () => {
+  const today = new Date();
+  return {
+    min: format(add(today, {hours: 6}), 'yyyy-MM-dd'),
+    max: format(add(today, {days: 20}), 'yyyy-MM-dd'),
+  };
+};
 
 export const InputDate: React.VFC<{className?: string}> = ({
   className,
@@ -13,6 +22,8 @@ export const InputDate: React.VFC<{className?: string}> = ({
 }) => {
   const {LL} = useTranslation();
   const {register} = useFormContext<FormData>();
+
+  const {min, max} = useDuration();
 
   return (
     <label
@@ -48,6 +59,8 @@ export const InputDate: React.VFC<{className?: string}> = ({
         required
         autoComplete="date"
         aria-label={LL.NewPage.Form.Label.Date()}
+        min={min}
+        max={max}
         {...register('date')}
       />
     </label>

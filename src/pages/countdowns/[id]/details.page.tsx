@@ -2,12 +2,13 @@ import gql from 'graphql-tag';
 import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from 'next';
 import React from 'react';
 import clsx from 'clsx';
-import Head from 'next/head';
 
 import {getSdk} from './details.page.codegen';
 
+import {Head} from '~/components/Head';
 import {ClockFC} from '~/components/CountdownPage/Clock';
 import {graphqlClient} from '~/graphql-request/client';
+import {useTranslation} from '~/i18n/useTranslation';
 
 const CountdownDetailsPageQuery = gql`
   query CountdownDetailsPage($id: ID!) {
@@ -50,11 +51,11 @@ export const getServerSideProps: GetServerSideProps<
 export const Page: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({title, igniteAt, ...props}) => {
+  const {LL} = useTranslation();
+
   return (
     <>
-      <Head>
-        <title>{title}</title>
-      </Head>
+      <Head title={LL.Head.Title.CountdownDetailsPage({title})} />
       <div
         className={clsx(
           ['w-full', 'h-full'],

@@ -2,14 +2,15 @@ import gql from 'graphql-tag';
 import {NextPage, GetServerSideProps, InferGetServerSidePropsType} from 'next';
 import React from 'react';
 import clsx from 'clsx';
-import Head from 'next/head';
 import dynamic from 'next/dynamic';
 
 import {getSdk} from './index.page.codegen';
 
+import {Head} from '~/components/Head';
 import {CountdownLayout} from '~/components/Layout';
 import {graphqlClient} from '~/graphql-request/client';
 import {Details} from '~/components/CountdownPage/Details';
+import {useTranslation} from '~/i18n/useTranslation';
 
 const CountdownPageQuery = gql`
   query CountdownPage($id: ID!) {
@@ -66,11 +67,10 @@ const NoSSRBackground = dynamic(
 export const Page: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > & {layout?: React.FC} = ({id, title, igniteAt, createdBy, ...props}) => {
+  const {LL} = useTranslation();
   return (
     <>
-      <Head>
-        <title>{title}</title>
-      </Head>
+      <Head title={LL.Head.Title.CountdownPage({title})} />
       <NoSSRBackground
         className={clsx(['w-full', 'h-screen'])}
         igniteAt={new Date(igniteAt)}

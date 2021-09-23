@@ -19,6 +19,7 @@ const ja: BaseTranslation = {
       CountdownPage: '{title:string} - TimeraaS',
       CountdownDetailsPage: '{title:string}の詳細 - TimeraaS',
     },
+    description: 'TimeraaSはカウントダウンページを作るアプリです',
   },
 
   FormatDate: {

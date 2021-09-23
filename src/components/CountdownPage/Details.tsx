@@ -1,9 +1,9 @@
 import clsx from 'clsx';
 import React from 'react';
-import Image from 'next/image';
 
 import {LinkCountdownDetails} from '../Link';
 
+import {Image} from '~/components/Image';
 import {useTranslation} from '~/i18n/useTranslation';
 
 export const Details: React.VFC<{

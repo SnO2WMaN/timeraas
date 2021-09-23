@@ -11,7 +11,16 @@ const ja: BaseTranslation = {
   CreatedAt: '作成日時',
   UpdatedAt: '更新日時',
 
-  Head: {},
+  Head: {
+    Title: {
+      IndexPage: 'TimeraaS',
+      ListPage: 'リスト - TimeraaS',
+      NewPage: '新しく作成 - TimeraaS',
+      CountdownPage: '{title:string} - TimeraaS',
+      CountdownDetailsPage: '{title:string}の詳細 - TimeraaS',
+    },
+    description: 'TimeraaSはカウントダウンページを作るアプリです',
+  },
 
   FormatDate: {
     LongDateTime: '{0:Date|longDateTime}',

@@ -13,7 +13,10 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ['pbs.twimg.com'],
+    domains: [
+      'pbs.twimg.com',
+      ...(process.env.NODE_ENV === 'development' ? ['cdn.fakercloud.com'] : []),
+    ],
   },
   i18n: {
     locales: ['ja'],

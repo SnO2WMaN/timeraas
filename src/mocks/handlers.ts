@@ -85,10 +85,9 @@ const devMocks = [
               title: faker.lorem.words(),
               igniteAt: faker.date.future().toISOString(),
               createdBy: {
-                id: 'user-1',
-                name: 'SnO2WMaN',
-                image:
-                  'https://pbs.twimg.com/profile_images/1413844612368658432/bT8eYwSC_400x400.png',
+                id: faker.datatype.uuid(),
+                name: faker.name.findName(),
+                image: faker.image.avatar(),
               },
             },
           },
@@ -108,10 +107,9 @@ const devMocks = [
               title: faker.lorem.words(),
               igniteAt: faker.date.future().toISOString(),
               createdBy: {
-                id: 'user-1',
-                name: 'SnO2WMaN',
-                image:
-                  'https://pbs.twimg.com/profile_images/1413844612368658432/bT8eYwSC_400x400.png',
+                id: faker.datatype.uuid(),
+                name: faker.name.findName(),
+                image: faker.image.avatar(),
               },
             },
           },

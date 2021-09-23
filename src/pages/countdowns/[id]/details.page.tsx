@@ -6,7 +6,7 @@ import Head from 'next/head';
 
 import {getSdk} from './details.page.codegen';
 
-import {ClockFC} from '~/components/Clock';
+import {ClockFC} from '~/components/CountdownPage/Clock';
 import {graphqlClient} from '~/graphql-request/client';
 
 const CountdownDetailsPageQuery = gql`

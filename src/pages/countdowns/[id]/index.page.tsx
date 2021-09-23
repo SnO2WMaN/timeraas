@@ -3,13 +3,13 @@ import {NextPage, GetServerSideProps, InferGetServerSidePropsType} from 'next';
 import React from 'react';
 import clsx from 'clsx';
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
 
 import {getSdk} from './index.page.codegen';
 
-import {ClockFC} from '~/components/Clock';
 import {CountdownLayout} from '~/components/Layout';
 import {graphqlClient} from '~/graphql-request/client';
-import {LinkCountdownDetails} from '~/components/Link';
+import {Details} from '~/components/CountdownPage/Details';
 
 const CountdownPageQuery = gql`
   query CountdownPage($id: ID!) {
@@ -29,7 +29,12 @@ const CountdownPageQuery = gql`
 `;
 const graphqlSdk = getSdk(graphqlClient);
 export const getServerSideProps: GetServerSideProps<
-  {id: string; title: string; igniteAt: string},
+  {
+    id: string;
+    title: string;
+    igniteAt: string;
+    createdBy: {id: string; name: string; image: string};
+  },
   {id: string}
 > = async ({query}) => {
   if (!query || typeof query.id !== 'string') return {notFound: true};
@@ -42,31 +47,46 @@ export const getServerSideProps: GetServerSideProps<
               id: countdown.id,
               title: countdown.title,
               igniteAt: countdown.igniteAt,
+              createdBy: {
+                id: countdown.createdBy.id,
+                name: countdown.createdBy.name,
+                image: countdown.createdBy.image,
+              },
             },
           }
         : {notFound: true},
     );
 };
 
+const NoSSRBackground = dynamic(
+  () => import('~/components/CountdownPage/Canvas'),
+  {ssr: false},
+);
+
 export const Page: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> & {layout?: React.FC} = ({id, title, igniteAt, ...props}) => {
+> & {layout?: React.FC} = ({id, title, igniteAt, createdBy, ...props}) => {
   return (
     <>
       <Head>
         <title>{title}</title>
       </Head>
-      <div
+      <NoSSRBackground
+        className={clsx(['w-full', 'h-screen'])}
+        igniteAt={new Date(igniteAt)}
+      />
+      <Details
         className={clsx(
-          ['w-full', 'h-full'],
-          ['flex', 'items-center', 'justify-center'],
+          ['absolute'],
+          ['z-1'],
+          ['bottom-0'],
+          ['right-0'],
+          ['mr-4'],
+          ['mb-4'],
         )}
-      >
-        <ClockFC igniteAt={new Date(igniteAt)} />
-        <LinkCountdownDetails id={id}>
-          <a>Details</a>
-        </LinkCountdownDetails>
-      </div>
+        id={id}
+        createdBy={createdBy}
+      />
     </>
   );
 };

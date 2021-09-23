@@ -16,7 +16,9 @@ export const DefaultLayout: React.FC = ({children}) => (
 
 export const CountdownLayout: React.FC = ({children}) => (
   <main className={clsx()}>
-    <section className={clsx(['w-full'], ['min-h-screen'])}>{children}</section>
+    <section className={clsx(['w-full'], ['min-h-screen'], ['relative'])}>
+      {children}
+    </section>
     <Footer className={clsx(['w-full'])} />
   </main>
 );

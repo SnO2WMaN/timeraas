@@ -1,9 +1,10 @@
 import React from 'react';
-import Image from 'next/image';
 import clsx from 'clsx';
 import styled from 'styled-components';
 
 import {Accordion} from './Accordion';
+
+import {Image} from '~/components/Image';
 
 const Details = styled.details`
   & > summary::-webkit-details-marker {

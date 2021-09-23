@@ -1,9 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
-import Image from 'next/image';
 
 import {AccordionItem} from './AccordionItem';
 
+import {Image} from '~/components/Image';
 import {IconList, IconPlus, IconSignout} from '~/components/Icon';
 import {useTranslation} from '~/i18n/useTranslation';
 import {LinkList, LinkNew, LinkSignOut} from '~/components/Link';

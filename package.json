@@ -61,7 +61,7 @@
     "react-use": "17.3.1",
     "recoil": "0.4.1",
     "styled-components": "5.3.1",
-    "typesafe-i18n": "2.37.4",
+    "typesafe-i18n": "2.60.2",
     "urql": "2.0.4"
   },
   "devDependencies": {
